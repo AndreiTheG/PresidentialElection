@@ -107,7 +107,7 @@ public class UserController {
         }
         userRepository.save(user);
         idUser = user.getId();
-        List<Candidate> candidates = candidateRepository.findAll();
+        List<Candidate> candidates = candidateRepository.findAll().stream().sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
         List<Candidate> topCandidates = candidates.stream().sorted(Comparator.comparingLong(Candidate::getNrVotes).reversed()).collect(Collectors.toList());
         model.addAttribute("candidates", candidates);
         model.addAttribute("topCandidates", topCandidates);
@@ -120,7 +120,7 @@ public class UserController {
         if (this.id != null) {
             User user = userRepository.findById(this.id).orElseThrow();
             model.addAttribute("user", user);
-            List<Candidate> candidates = candidateRepository.findAll();
+            List<Candidate> candidates = candidateRepository.findAll().stream().sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
             for (Candidate candidate : candidates) {
                 candidateRepository.save(candidate);
                 if (candidate.getId() == idCandidate) {

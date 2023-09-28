@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Presidential Election</title>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="icon" href="https://static.vecteezy.com/system/resources/previews/005/654/820/non_2x/president-election-concept-icon-public-speech-idea-thin-line-illustration-choosing-head-of-state-national-voting-day-electing-new-country-leader-isolated-outline-drawing-editable-stroke-vector.jpg">
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/user/:{id}(id=${user.id})}">Presidential Election</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <ul class="dropdown-menu">
+                    <div th:each="candidate : ${candidates}">
+<!--                        <li><hr class="dropdown-divider"></li>-->
+                        <a class="dropdown-item" th:href="@{/user/{idCandidate}(idCandidate=${candidate.id})}"
+                           th:text="${candidate.name} + ' ' + ${candidate.surname}"></a>
+                        <a class="btn btn-success" th:href="@{/user/vote/{idCandidate}(idCandidate=${candidate.id})}">Vote</a>
+                    </div>
+                </ul>
+            </div>
+            <form>
+                <i class="bi bi-person-circle"></i>
+                <a class="navbar-brand" th:href="@{/user/page-profile/:{id}(id=${user.id})}" th:text="${user.username}"></a>
+                <a class="btn btn-primary" th:href="@{/user/add-candidates/:{id}(id=${user.id})}">Candidate</a>
+                <a class="btn btn-danger" href="/user/login-or-register">Log out</a>
+            </form>
+        </div>
+    </nav>
+    <h1 th:text="'Hello, '  + ${user.name} + '!'"/>
+    <h2>Welcome to presidential election!</h2>
+    <div th:each="candidate : ${topCandidates}">
+        <a th:text="${candidate.name} + ' ' + ${candidate.surname} + ' ' + ${candidate.nrVotes}"></a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -33,11 +33,22 @@
             </form>
         </div>
     </nav>
-    <h1 th:text="'Hello, '  + ${user.name} + '!'"/>
-    <h2>Welcome to presidential election!</h2>
-    <div th:each="candidate : ${topCandidates}">
-        <a th:text="${candidate.name} + ' ' + ${candidate.surname} + ' ' + ${candidate.nrVotes}"></a>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Nr. Votes</th>
+            </tr>
+        </thead>
+        <tbody th:each="candidate : ${topCandidates}">
+            </tr>
+                <th th:text="${candidate.name}"></th>
+                <th th:text="${candidate.surname}"></th>
+                <th th:text="${candidate.nrVotes}"></th>
+            </tr>
+        </tbody>
+    </table>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

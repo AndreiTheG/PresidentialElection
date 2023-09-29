@@ -1,15 +1,13 @@
 package com.example.PresidentialElection;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Comparator;
-import java.util.NoSuchElementException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +22,7 @@ public class UserController {
     private CandidateRepository candidateRepository;
     private Boolean voted = false;
     private Long idCandidate;
+    private Long lastIdCandidate;
 
     @Autowired
     public UserController(UserRepository userRepository, CandidateRepository candidateRepository) {
@@ -102,7 +101,8 @@ public class UserController {
         }
         userRepository.save(user);
         idUser = user.getId();
-        List<Candidate> candidates = candidateRepository.findAll().stream().sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
+        List<Candidate> candidates = candidateRepository.findAll().stream()
+                .sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
         List<Candidate> topCandidates = candidates.stream().sorted(Comparator.comparingLong(Candidate::getNrVotes).reversed()).collect(Collectors.toList());
         model.addAttribute("candidates", candidates);
         model.addAttribute("topCandidates", topCandidates);
@@ -115,23 +115,11 @@ public class UserController {
         if (this.id != null) {
             User user = userRepository.findById(this.id).orElseThrow();
             model.addAttribute("user", user);
+            System.out.println(this.idCandidate);
             List<Candidate> candidates = candidateRepository.findAll().stream().sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
-            for (Candidate candidate : candidates) {
-                candidateRepository.save(candidate);
-                if (candidate.getId() == idCandidate) {
-                    long nrVotes = candidate.getNrVotes();
-                    ++nrVotes;
-                    candidate.setNrVotes(nrVotes);
-                    candidateRepository.save(candidate);
-                }
-            }
-            //candidates.sort(<Candidate);
             List<Candidate> topCandidates = candidates.stream().sorted(Comparator.comparingLong(Candidate::getNrVotes).reversed()).collect(Collectors.toList());
             model.addAttribute("candidates", candidates);
             model.addAttribute("topCandidates", topCandidates);
-            for (Candidate candidate : topCandidates) {
-                System.out.println(candidate);
-            }
         } else {
             return "redirect:/user/login-or-register";
         }
@@ -152,6 +140,8 @@ public class UserController {
         model.addAttribute("user", user);
         userRepository.save(user);
         this.id = id;
+        this.idCandidate = lastIdCandidate;
+        System.out.println(this.idCandidate);
         return "redirect:/user/";
     }
 
@@ -241,78 +231,75 @@ public class UserController {
         return "updateDescription";
     }
 
-    @PostMapping("add-candidates/:{id}")
-    public String addListCandidates(@PathVariable("id") Long id) {
-        return "redirect:/user/" + id + "";
-    }
-
-    @GetMapping("add-candidates/:{id}")
-    public String getListCandidates(@PathVariable("id") Long id) {
-        return "redirect:/user/:" + id + "";
-    }
-
-    @PostMapping("{candidateId}")
-    public String createCandidateProfilePage(@PathVariable("candidateId") Long candidateId) {
-        return "redirect:/user/:" + candidateId + "/candidate-profile";
-    }
-
-    @GetMapping("{idCandidate}")
-    public String candidateProfilePage(@PathVariable("idCandidate") Long candidateId, Model model){
-        System.out.println(idUser);
-        if (idUser == 0) {
-            return "redirect:/user/login-or-register";
-        }
-        User user = userRepository.findById(idUser).orElseThrow();
-        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
-        List<Candidate> listOfCandidates = candidateRepository.findAll();
-        model.addAttribute("user", user);
-        model.addAttribute("candidate", candidate);
-        model.addAttribute("candidates", listOfCandidates);
-        return "redirect:/user/:" + candidateId + "/candidate-profile";
-    }
-
-    @PostMapping(":{candidateId}/candidate-profile")
-    public String createCandidatePageProfile(@PathVariable("candidateId") Long candidateId, Model model) {
-        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
-        model.addAttribute("candidate", candidate);
-        return "candidatePageProfile";
-    }
-
-    @GetMapping(":{idCandidate}/candidate-profile")
-    public String candidatePageProfile(@PathVariable("idCandidate") Long candidateId, Model model){
-        if (idUser == 0) {
-            return "redirect:/user/login-or-register";
-        }
-        User user = userRepository.findById(idUser).orElseThrow();
-        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
-        List<Candidate> listCandidates = candidateRepository.findAll();
-        updateCandidatesList(listCandidates, user);
-        model.addAttribute("user", user);
-        model.addAttribute("candidate", candidate);
-        model.addAttribute("candidates", listCandidates);
-        return "candidatePageProfile";
-    }
-
-    @GetMapping("/vote/{idCandidate}")
-    public String getTheVote(@PathVariable("idCandidate") long candidateId) {
+//    @PostMapping("add-candidates/:{id}")
+//    public String addListCandidates(@PathVariable("id") Long id) {
+//        return "redirect:/user/" + id + "";
+//    }
+//
+//    @GetMapping("add-candidates/:{id}")
+//    public String getListCandidates(@PathVariable("id") Long id) {
+//        return "redirect:/user/:" + id + "";
+//    }
+//
+//    @PostMapping("{candidateId}")
+//    public String createCandidateProfilePage(@PathVariable("candidateId") Long candidateId) {
+//        return "redirect:/user/:" + candidateId + "/candidate-profile";
+//    }
+//
+//    @GetMapping("{idCandidate}")
+//    public String candidateProfilePage(@PathVariable("idCandidate") Long candidateId, Model model){
+//        System.out.println(idUser);
+//        if (idUser == 0) {
+//            return "redirect:/user/login-or-register";
+//        }
+//        User user = userRepository.findById(idUser).orElseThrow();
 //        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
-        System.out.println(idUser);
-        voted = true;
-        this.idCandidate = candidateId;
-//        long nrVotes = candidate.getNrVotes();
-//        ++nrVotes;
-//        System.out.println(nrVotes);
-//        candidate.setNrVotes(nrVotes);
+//        List<Candidate> listOfCandidates = candidateRepository.findAll();
+//        model.addAttribute("user", user);
+//        model.addAttribute("candidate", candidate);
+//        model.addAttribute("candidates", listOfCandidates);
+//        return "redirect:/user/:" + candidateId + "/candidate-profile";
+//    }
+//
+//    @PostMapping(":{candidateId}/candidate-profile")
+//    public String createCandidatePageProfile(@PathVariable("candidateId") Long candidateId, Model model) {
+//        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
+//        model.addAttribute("candidate", candidate);
+//        return "candidatePageProfile";
+//    }
+//
+//    @GetMapping(":{idCandidate}/candidate-profile")
+//    public String candidatePageProfile(@PathVariable("idCandidate") Long candidateId, Model model){
+//        if (idUser == 0) {
+//            return "redirect:/user/login-or-register";
+//        }
+//        idCandidate = candidateId;
+//        User user = userRepository.findById(idUser).orElseThrow();
+//        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
 //        List<Candidate> listCandidates = candidateRepository.findAll();
-//        for (Candidate currentCandidate : listCandidates) {
-//            if (currentCandidate.getId() == candidateId) {
-//                long nrCurrentVotes = currentCandidate.getNrVotes();
-//                ++nrCurrentVotes;
-//                currentCandidate.setNrVotes(nrCurrentVotes);
-//                System.out.println(currentCandidate.getNrVotes());
-//                break;
+//        updateCandidatesList(listCandidates, user);
+//        model.addAttribute("user", user);
+//        model.addAttribute("candidate", candidate);
+//        model.addAttribute("candidates", listCandidates);
+//        return "candidatePageProfile";
+//    }
+//
+//    @GetMapping("/vote/{idCandidate}")
+//    public String getTheVote(@PathVariable("idCandidate") Long candidateId) {
+//        System.out.println(idUser);
+//        voted = true;
+//        this.idCandidate = candidateId;
+//        List<Candidate> candidates = candidateRepository.findAll().stream().sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
+//        for (Candidate candidate : candidates) {
+//            candidateRepository.save(candidate);
+//            if (candidate.getId() == this.idCandidate) {
+//                long nrVotes = candidate.getNrVotes();
+//                ++nrVotes;
+//                candidate.setNrVotes(nrVotes);
+//                candidateRepository.save(candidate);
 //            }
 //        }
-        return "redirect:/user/:" + idUser + "";
-    }
+//        lastIdCandidate = candidateId;
+//        return "redirect:/user/:" + idUser + "";
+//    }
 }

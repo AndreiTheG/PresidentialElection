@@ -1,5 +1,6 @@
 package com.example.PresidentialElection;
 
+//import com.example.PresidentialElection.Model.Candidate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

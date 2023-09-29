@@ -1,6 +1,9 @@
 package com.example.PresidentialElection;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.springframework.lang.NonNull;
 
 

@@ -1,4 +1,4 @@
-package com.example.PresidentialElection;
+package com.example.PresidentialElection.Models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

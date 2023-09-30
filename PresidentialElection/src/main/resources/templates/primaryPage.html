@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,9 +19,9 @@
                 <ul class="dropdown-menu">
                     <div th:each="candidate : ${candidates}">
 <!--                        <li><hr class="dropdown-divider"></li>-->
-                        <a class="dropdown-item" th:href="@{/user/{idCandidate}(idCandidate=${candidate.id})}"
+                        <a class="dropdown-item" th:href="@{/user/{idCandidate}/{idUser}(idCandidate = ${candidate.id}, idUser=${user.id})}"
                            th:text="${candidate.name} + ' ' + ${candidate.surname}"></a>
-                        <a class="btn btn-success" th:href="@{/user/vote/{idCandidate}(idCandidate=${candidate.id})}">Vote</a>
+                        <a class="btn btn-success" th:href="@{/user/vote/{idCandidate}/{idUser}(idCandidate=${candidate.id}, idUser=${user.id})}">Vote</a>
                     </div>
                 </ul>
             </div>

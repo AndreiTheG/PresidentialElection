@@ -1,4 +1,4 @@
-package com.example.PresidentialElection;
+package com.example.PresidentialElection.Models;
 
 import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
@@ -11,37 +11,35 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @Column(name = "Name")
     @NonNull
     private String name;
-
-
     @Column(name = "Surname")
     @NonNull
     private String surname;
-
     @Column(name = "Email")
     @NonNull
     private String email;
-
     @Column(name = "Phone No.")
     @NonNull
     private String phoneNumber;
-
     @Column(name = "Username")
     @NonNull
     private String username;
-
     @Column(name = "Password")
     @NonNull
     private String password;
-
     @Column(name="Description")
     private String description;
-    public User() {}
+    @Column(name="Voted")
+    @NonNull
+    private Boolean voted = false;
 
-    public User(String name, String surname, String email, String phoneNumber, String username, String password, String description) {
+    public User() {
+        voted = false;
+    }
+
+    public User(String name, String surname, String email, String phoneNumber, String username, String password, String description, Boolean voted) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -49,6 +47,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.description = description;
+        this.voted = voted;
     }
 
     @NonNull
@@ -123,6 +122,14 @@ public class User implements Serializable {
         this.description = description;
     }
 
+    public Boolean getVoted() {
+        return voted;
+    }
+
+    public void setVoted(Boolean voted) {
+        this.voted = voted;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -134,6 +141,21 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", description='" + description + '\'' +
+                ", voted=" + voted +
                 '}';
     }
+
+    //    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", email='" + email + '\'' +
+//                ", phoneNumber='" + phoneNumber + '\'' +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", description='" + description + '\'' +
+//                '}';
+//    }
 }

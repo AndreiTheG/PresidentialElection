@@ -35,10 +35,10 @@ public class UserController {
         this.candidateRepository = candidateRepository;
     }
 
-    @PostMapping("login-or-register")
-    public String createLoginRegister() {
-        return "index";
-    }
+//    @PostMapping("login-or-register")
+//    public String createLoginRegister() {
+//        return "index";
+//    }
 
     @GetMapping("login-or-register")
     public String getLoginRegister() {

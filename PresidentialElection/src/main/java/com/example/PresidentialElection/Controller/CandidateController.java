@@ -60,7 +60,7 @@ public class CandidateController {
     }
 
     @GetMapping("add-candidates/:{id}")
-    public String getListCandidates(@PathVariable("id") Long id) {
+    public String addAndDisplayCandidates(@PathVariable("id") Long id) {
         User user = userRepository.findById(id).orElseThrow();
         List<Candidate> candidates = candidateRepository.findAll();
         updateCandidatesList(candidates, user);

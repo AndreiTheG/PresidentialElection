@@ -48,7 +48,7 @@ public class CandidateController {
         System.out.println(isCandidate);
         if (!isCandidate) {
             Candidate candidate = new Candidate();
-            candidate.setId(id);
+            candidate.setId(user.getId());
             candidate.setName(user.getName());
             candidate.setSurname(user.getSurname());
             candidate.setEmail(user.getEmail());

@@ -60,14 +60,14 @@ public class CandidateController {
 
     @PostMapping("add-candidates/:{id}")
     public String addListCandidates(@PathVariable("id") Long id) {
-        User user = userRepository.findById(id).orElseThrow();
-        List<Candidate> candidates = candidateRepository.findAll();
-        updateCandidatesList(candidates, user);
         return "redirect:/user/" + id + "";
     }
 
     @GetMapping("add-candidates/:{id}")
     public String getListCandidates(@PathVariable("id") Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        List<Candidate> candidates = candidateRepository.findAll();
+        updateCandidatesList(candidates, user);
         return "redirect:/user/:" + id + "";
     }
 

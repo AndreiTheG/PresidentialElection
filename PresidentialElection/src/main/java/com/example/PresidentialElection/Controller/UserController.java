@@ -57,10 +57,10 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("login-error")
-    public String postErrorLoginPage() {
-        return "loginError";
-    }
+//    @PostMapping("login-error")
+//    public String postErrorLoginPage() {
+//        return "loginError";
+//    }
 
     @GetMapping("login-error")
     public String getErrorLoginPage(Model model) {
@@ -68,10 +68,10 @@ public class UserController {
         return "loginError";
     }
 
-    @PostMapping("register")
-    public String createRegisterPage() {
-        return "register";
-    }
+//    @PostMapping("register")
+//    public String createRegisterPage() {
+//        return "register";
+//    }
 
     @GetMapping("register")
     public String getRegisterPage(Model model) {

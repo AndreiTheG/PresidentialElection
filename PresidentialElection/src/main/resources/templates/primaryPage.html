@@ -17,7 +17,7 @@
                     Dropdown button
                 </button>
                 <ul class="dropdown-menu">
-                    <div th:each="candidate : ${candidates}">
+                    <div class="vertical-menu" th:each="candidate : ${candidates}">
 <!--                        <li><hr class="dropdown-divider"></li>-->
                         <a class="dropdown-item" th:href="@{/user/{idCandidate}/{idUser}(idCandidate = ${candidate.id}, idUser=${user.id})}"
                            th:text="${candidate.name} + ' ' + ${candidate.surname}"></a>

@@ -45,10 +45,10 @@ public class UserController {
         return "index";
     }
 
-    @PostMapping("login")
-    public String createLoginPage() {
-        return "login";
-    }
+//    @PostMapping("login")
+//    public String createLoginPage() {
+//        return "login";
+//    }
 
     @GetMapping("login")
     public String getLoginPage(Model model) {
@@ -100,7 +100,7 @@ public class UserController {
     @PostMapping("")
     public String createPrimaryPage(@Validated User user, Model model) {
         findTheUser(user);
-        if (choseRegister == true) {
+        if (choseRegister) {
             userRepository.save(user);
         } else if (user.getId() == 0) {
             return "redirect:/user/login-error";

@@ -16,8 +16,8 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Dropdown button
                 </button>
-                <ul class="dropdown-menu">
-                    <div class="scrollspy-example" th:each="candidate : ${candidates}">
+                <ul class="dropdown-menu scrollable-menu" role="menu">
+                    <div th:each="candidate : ${candidates}">
 <!--                        <li><hr class="dropdown-divider"></li>-->
                         <a class="dropdown-item" th:href="@{/user/{idCandidate}/{idUser}(idCandidate = ${candidate.id}, idUser=${user.id})}"
                            th:text="${candidate.name} + ' ' + ${candidate.surname}"></a>

@@ -97,8 +97,9 @@ public class UserController {
         }
     }
 
+    //After we login or register with our data, we will be redirected to the created primary page
     @PostMapping("")
-    public String createPrimaryPage(@Validated User user, Model model) {
+    public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model) {
         findTheUser(user);
         if (choseRegister) {
             userRepository.save(user);

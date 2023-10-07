@@ -83,8 +83,8 @@ public class UserController {
 
     // If the user signed in, this method verifies there is an user with these data saved in database. If
     // exists, it will open the primary page. Else it will redirect to login-error page. If
-    // the user signed up, his/her data will be saved in database and will display the primary Page with its username
-    // in the navbar.
+    // the user signed up, his/her data will be saved in database and will display the primary Page with
+    // its username in the navbar.
     @PostMapping("")
     public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model) {
         findTheUser(user);

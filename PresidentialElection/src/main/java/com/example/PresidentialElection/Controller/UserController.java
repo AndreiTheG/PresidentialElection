@@ -142,8 +142,9 @@ public class UserController {
 //        return "primaryPage";
 //    }
 
+    //Press the navbar-brand and its link will direct you to the home page
     @GetMapping(":{id}")
-    public String getUserIdAndRedirectTPrimaryPage(Model model, @PathVariable("id") Long id) {
+    public String getUserIdAndRedirectToPrimaryPage(Model model, @PathVariable("id") Long id) {
         User user = userRepository.findById(id).orElseThrow();
         model.addAttribute("user", user);
         userRepository.save(user);
@@ -153,14 +154,14 @@ public class UserController {
         return "redirect:/user/";
     }
 
-    @PostMapping(value = "page-profile/:{id}")
-    public String createPageProfile(@PathVariable("id") Long id, Model model, User currentUser) {
-        User user = userRepository.findById(id).orElseThrow();
-        user.setDescription(currentUser.getDescription());
-        model.addAttribute("user", user);
-        userRepository.save(user);
-        return "redirect:/user/:" + id + "/page-profile";
-    }
+//    @PostMapping(value = "page-profile/:{id}")
+//    public String createPageProfile(@PathVariable("id") Long id, Model model, User currentUser) {
+//        User user = userRepository.findById(id).orElseThrow();
+//        user.setDescription(currentUser.getDescription());
+//        model.addAttribute("user", user);
+//        userRepository.save(user);
+//        return "redirect:/user/:" + id + "/page-profile";
+//    }
 
     @PostMapping(value = ":{id}/page-profile")
     public String createPageProfileDerived(@PathVariable("id") Long id, Model model, User currentUser) {

@@ -172,12 +172,12 @@ public class UserController {
         return "pageProfile";
     }
 
-    @GetMapping("page-profile/:{id}")
-    public String getPageProfile(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow();
-        model.addAttribute("user", user);
-        return "redirect:/user/:" + id + "/page-profile";
-    }
+//    @GetMapping("page-profile/:{id}")
+//    public String getPageProfile(@PathVariable("id") Long id, Model model) {
+//        User user = userRepository.findById(id).orElseThrow();
+//        model.addAttribute("user", user);
+//        return "redirect:/user/:" + id + "/page-profile";
+//    }
 
     @GetMapping(":{id}/page-profile")
     public String getPageProfileDerived(@PathVariable("id") Long id, Model model) {

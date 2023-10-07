@@ -134,13 +134,13 @@ public class UserController {
         return "primaryPage";
     }
 
-    @PostMapping(":{id}")
-    public String goBackToPrimaryPage(Model model, @PathVariable("id") Long id) {
-        User user = userRepository.findById(id).orElseThrow();
-        model.addAttribute("user", user);
-        userRepository.save(user);
-        return "primaryPage";
-    }
+//    @PostMapping(":{id}")
+//    public String goBackToPrimaryPage(Model model, @PathVariable("id") Long id) {
+//        User user = userRepository.findById(id).orElseThrow();
+//        model.addAttribute("user", user);
+//        userRepository.save(user);
+//        return "primaryPage";
+//    }
 
     @GetMapping(":{id}")
     public String getUserIdAndRedirectTPrimaryPage(Model model, @PathVariable("id") Long id) {

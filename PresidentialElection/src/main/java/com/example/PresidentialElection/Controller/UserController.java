@@ -182,7 +182,7 @@ public class UserController {
 //    }
 
     @GetMapping(":{id}/page-profile")
-    public String getPageProfileDerived(@PathVariable("id") Long id, Model model) {
+    public String openPageProfile(@PathVariable("id") Long id, Model model) {
         User user = userRepository.findById(id).orElseThrow();
         model.addAttribute("user", user);
         List<Candidate> listCandidates = candidateRepository.findAll();

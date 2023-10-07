@@ -46,7 +46,7 @@
         <h3 >Description</h3>
         <textarea readonly style="resize: none; width: 500px; height: 300px" th:text="${user.description}"></textarea>
         <br>
-        <a th:href="@{/user/update-description/:{id}(id=${user.id})}"><button class="btn btn-success">
+        <a th:href="@{/user/:{id}/update-description(id=${user.id})}"><button class="btn btn-success">
             Edit
         </button></a>
     </div>

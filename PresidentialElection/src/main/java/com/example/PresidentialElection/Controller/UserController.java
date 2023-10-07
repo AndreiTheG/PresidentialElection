@@ -188,19 +188,19 @@ public class UserController {
         return "pageProfile";
     }
 
-    @PostMapping("update-description/:{id}")
-    public String updateDescription(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow();
-        model.addAttribute("user", user);
-        return "updateDescription";
-    }
+//    @PostMapping("update-description/:{id}")
+//    public String updateDescription(@PathVariable("id") Long id, Model model) {
+//        User user = userRepository.findById(id).orElseThrow();
+//        model.addAttribute("user", user);
+//        return "updateDescription";
+//    }
 
-    @GetMapping("update-description/:{id}")
-    public String getDescription(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow();
-        model.addAttribute("user", user);
-        return  "redirect:/user/:" + id + "/update-description";
-    }
+//    @GetMapping("update-description/:{id}")
+//    public String getDescription(@PathVariable("id") Long id, Model model) {
+//        User user = userRepository.findById(id).orElseThrow();
+//        model.addAttribute("user", user);
+//        return  "redirect:/user/:" + id + "/update-description";
+//    }
 
     @GetMapping(":{id}/update-description")
     public String getDerivedDescription(@PathVariable("id") Long id, Model model) {

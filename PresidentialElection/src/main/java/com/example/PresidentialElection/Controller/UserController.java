@@ -116,6 +116,7 @@ public class UserController {
         return "primaryPage";
     }
 
+    //Displays the primary page with the current data from server
     @GetMapping("")
     public String getPrimaryPage(Model model) {
         model.addAttribute("user", new User());

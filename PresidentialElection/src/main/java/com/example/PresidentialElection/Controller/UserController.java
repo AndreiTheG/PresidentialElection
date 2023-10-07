@@ -76,7 +76,10 @@ public class UserController {
         }
     }
 
-    //After we login or register with our data, we will be redirected to the created primary page
+    // If the user signed in, this method verifies there is an user with these data saved in database. If
+    // exists, it will open the primary page. Else it will redirect to login-error page. If
+    // the user signed up, his/her data will be saved in database and will display the primary Page with its username
+    // in the navbar.
     @PostMapping("")
     public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model) {
         findTheUser(user);
@@ -95,7 +98,7 @@ public class UserController {
         return "primaryPage";
     }
 
-    //Display the primary page with the current data from server
+    //Display the primary page with the current data from server if the user didn't log out.
     @GetMapping("")
     public String getPrimaryPage(Model model) {
         model.addAttribute("user", new User());
@@ -113,7 +116,7 @@ public class UserController {
         return "primaryPage";
     }
 
-    //Press the navbar-brand and its link will direct you to the home page
+    //Press the navbar-brand and the page will go back to primary page
     @GetMapping(":{id}")
     public String getUserIdAndRedirectToPrimaryPage(Model model, @PathVariable("id") Long id) {
         User user = userRepository.findById(id).orElseThrow();
@@ -125,8 +128,9 @@ public class UserController {
         return "redirect:/user/";
     }
 
+    //Display the page profile after the modifications of the user's description
     @PostMapping(value = ":{id}/page-profile")
-    public String createPageProfileDerived(@PathVariable("id") Long id, Model model, User currentUser) {
+    public String saveTheModifiedDataOfPageProfile(@PathVariable("id") Long id, Model model, User currentUser) {
         User user = userRepository.findById(id).orElseThrow();
         user.setDescription(currentUser.getDescription());
         model.addAttribute("user", user);
@@ -136,6 +140,7 @@ public class UserController {
         return "pageProfile";
     }
 
+    //Display the Profile page with the current information of the user
     @GetMapping(":{id}/page-profile")
     public String openPageProfile(@PathVariable("id") Long id, Model model) {
         User user = userRepository.findById(id).orElseThrow();

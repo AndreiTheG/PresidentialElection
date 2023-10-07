@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/user/")
 public class UserController {
-
     private UserRepository userRepository;
     private Boolean choseRegister = false;
     private long id;

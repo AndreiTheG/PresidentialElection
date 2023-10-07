@@ -116,7 +116,7 @@ public class UserController {
         return "primaryPage";
     }
 
-    //Displays the primary page with the current data from server
+    //Display the primary page with the current data from server
     @GetMapping("")
     public String getPrimaryPage(Model model) {
         model.addAttribute("user", new User());
@@ -143,7 +143,7 @@ public class UserController {
     }
 
     @GetMapping(":{id}")
-    public String getToPrimaryPage(Model model, @PathVariable("id") Long id) {
+    public String getUserIdAndRedirectTPrimaryPage(Model model, @PathVariable("id") Long id) {
         User user = userRepository.findById(id).orElseThrow();
         model.addAttribute("user", user);
         userRepository.save(user);

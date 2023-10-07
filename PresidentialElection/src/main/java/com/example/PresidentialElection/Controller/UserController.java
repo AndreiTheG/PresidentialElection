@@ -34,11 +34,13 @@ public class UserController {
         this.candidateRepository = candidateRepository;
     }
 
+    //Open the page with login and register options
     @GetMapping("login-or-register")
     public String getLoginRegister() {
         return "index";
     }
 
+    //Open the login page
     @GetMapping("login")
     public String getLoginPage(Model model) {
         choseRegister = false;
@@ -46,12 +48,14 @@ public class UserController {
         return "login";
     }
 
+    //Open the login-error page if the user entered the incorrect data
     @GetMapping("login-error")
     public String getErrorLoginPage(Model model) {
         model.addAttribute("user", new User());
         return "loginError";
     }
 
+    //Open the register page
     @GetMapping("register")
     public String getRegisterPage(Model model) {
         choseRegister = true;
@@ -59,6 +63,7 @@ public class UserController {
         return "register";
     }
 
+    //Find the user by username and password
     public void findTheUser(User user) {
         List<User> userList = userRepository.findAll();
         for (User currentUser : userList) {

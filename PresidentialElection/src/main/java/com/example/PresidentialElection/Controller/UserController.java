@@ -35,20 +35,10 @@ public class UserController {
         this.candidateRepository = candidateRepository;
     }
 
-//    @PostMapping("login-or-register")
-//    public String createLoginRegister() {
-//        return "index";
-//    }
-
     @GetMapping("login-or-register")
     public String getLoginRegister() {
         return "index";
     }
-
-//    @PostMapping("login")
-//    public String createLoginPage() {
-//        return "login";
-//    }
 
     @GetMapping("login")
     public String getLoginPage(Model model) {
@@ -57,21 +47,11 @@ public class UserController {
         return "login";
     }
 
-//    @PostMapping("login-error")
-//    public String postErrorLoginPage() {
-//        return "loginError";
-//    }
-
     @GetMapping("login-error")
     public String getErrorLoginPage(Model model) {
         model.addAttribute("user", new User());
         return "loginError";
     }
-
-//    @PostMapping("register")
-//    public String createRegisterPage() {
-//        return "register";
-//    }
 
     @GetMapping("register")
     public String getRegisterPage(Model model) {
@@ -134,14 +114,6 @@ public class UserController {
         return "primaryPage";
     }
 
-//    @PostMapping(":{id}")
-//    public String goBackToPrimaryPage(Model model, @PathVariable("id") Long id) {
-//        User user = userRepository.findById(id).orElseThrow();
-//        model.addAttribute("user", user);
-//        userRepository.save(user);
-//        return "primaryPage";
-//    }
-
     //Press the navbar-brand and its link will direct you to the home page
     @GetMapping(":{id}")
     public String getUserIdAndRedirectToPrimaryPage(Model model, @PathVariable("id") Long id) {
@@ -154,15 +126,6 @@ public class UserController {
         return "redirect:/user/";
     }
 
-//    @PostMapping(value = "page-profile/:{id}")
-//    public String createPageProfile(@PathVariable("id") Long id, Model model, User currentUser) {
-//        User user = userRepository.findById(id).orElseThrow();
-//        user.setDescription(currentUser.getDescription());
-//        model.addAttribute("user", user);
-//        userRepository.save(user);
-//        return "redirect:/user/:" + id + "/page-profile";
-//    }
-
     @PostMapping(value = ":{id}/page-profile")
     public String createPageProfileDerived(@PathVariable("id") Long id, Model model, User currentUser) {
         User user = userRepository.findById(id).orElseThrow();
@@ -174,13 +137,6 @@ public class UserController {
         return "pageProfile";
     }
 
-//    @GetMapping("page-profile/:{id}")
-//    public String getPageProfile(@PathVariable("id") Long id, Model model) {
-//        User user = userRepository.findById(id).orElseThrow();
-//        model.addAttribute("user", user);
-//        return "redirect:/user/:" + id + "/page-profile";
-//    }
-
     @GetMapping(":{id}/page-profile")
     public String openPageProfile(@PathVariable("id") Long id, Model model) {
         User user = userRepository.findById(id).orElseThrow();
@@ -189,20 +145,6 @@ public class UserController {
         model.addAttribute("candidates", listCandidates);
         return "pageProfile";
     }
-
-//    @PostMapping("update-description/:{id}")
-//    public String updateDescription(@PathVariable("id") Long id, Model model) {
-//        User user = userRepository.findById(id).orElseThrow();
-//        model.addAttribute("user", user);
-//        return "updateDescription";
-//    }
-
-//    @GetMapping("update-description/:{id}")
-//    public String getDescription(@PathVariable("id") Long id, Model model) {
-//        User user = userRepository.findById(id).orElseThrow();
-//        model.addAttribute("user", user);
-//        return  "redirect:/user/:" + id + "/update-description";
-//    }
 
     @GetMapping(":{id}/update-description")
     public String getDerivedDescription(@PathVariable("id") Long id, Model model) {

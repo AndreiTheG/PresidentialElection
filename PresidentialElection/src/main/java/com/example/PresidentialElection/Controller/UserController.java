@@ -168,6 +168,8 @@ public class UserController {
         User user = userRepository.findById(id).orElseThrow();
         user.setDescription(currentUser.getDescription());
         model.addAttribute("user", user);
+        List<Candidate> listCandidates = candidateRepository.findAll();
+        model.addAttribute("candidates", listCandidates);
         userRepository.save(user);
         return "pageProfile";
     }

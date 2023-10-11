@@ -14,11 +14,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/user/")
+@RequestMapping("/elector/")
 public class CandidateController {
       private UserRepository userRepository;
-      private boolean choseRegister = false;
-      private long id;
       private long idUser;
       private CandidateRepository candidateRepository;
       private boolean voted = false;
@@ -31,11 +29,13 @@ public class CandidateController {
         this.candidateRepository = candidateRepository;
     }
 
+    //Verifies if
     public void updateCandidatesList(List<Candidate> listCandidates, User user) {
         boolean isCandidate = false;
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;
+
                 currentCandidate.setName(user.getName());
                 currentCandidate.setSurname(user.getSurname());
                 currentCandidate.setEmail(user.getEmail());

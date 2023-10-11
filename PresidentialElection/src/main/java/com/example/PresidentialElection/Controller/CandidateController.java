@@ -81,7 +81,7 @@ public class CandidateController {
         List<Candidate> listOfCandidates = candidateRepository.findAll();
         model.addAttribute("user", user);
         model.addAttribute("candidates", listOfCandidates);
-        return "redirect:/user/:" + idCandidate + "/candidate-profile";
+        return "redirect:/elector/:" + idCandidate + "/candidate-profile";
     }
 
     @PostMapping(":{candidateId}/candidate-profile")

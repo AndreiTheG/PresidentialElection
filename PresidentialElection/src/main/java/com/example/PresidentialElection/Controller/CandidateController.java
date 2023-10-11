@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/elector/")
+@RequestMapping("/applicant/")
 public class CandidateController {
       private UserRepository userRepository;
       private long idUser;
@@ -81,7 +81,7 @@ public class CandidateController {
         List<Candidate> listOfCandidates = candidateRepository.findAll();
         model.addAttribute("user", user);
         model.addAttribute("candidates", listOfCandidates);
-        return "redirect:/elector/:" + idCandidate + "/candidate-profile";
+        return "redirect:/applicant/:" + idCandidate + "/candidate-profile";
     }
 
     @PostMapping(":{candidateId}/candidate-profile")

@@ -45,7 +45,6 @@ public class CandidateController {
                 break;
             }
         }
-        System.out.println(isCandidate);
         if (!isCandidate) {
             Candidate candidate = new Candidate();
             candidate.setId(user.getId());

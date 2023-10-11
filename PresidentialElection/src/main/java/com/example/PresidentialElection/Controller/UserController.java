@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class UserController {
     private UserRepository userRepository;
     private Boolean choseRegister = false;
-    private long id;
+   // private long id;
     private long idUser;
     private CandidateRepository candidateRepository;
     private long idCandidate;
@@ -107,8 +107,8 @@ public class UserController {
     @GetMapping("")
     public String getPrimaryPage(Model model) {
         model.addAttribute("user", new User());
-        if (this.id != 0) {
-            User user = userRepository.findById(this.id).orElseThrow();
+        if (this.idUser != 0) {
+            User user = userRepository.findById(this.idUser).orElseThrow();
             model.addAttribute("user", user);
             List<Candidate> candidates = candidateRepository.findAll().stream()
                     .sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
@@ -122,14 +122,14 @@ public class UserController {
     }
 
     //Press the navbar-brand and the page will go back to primary page
-    @GetMapping(":{id}")
-    public String getUserIdAndRedirectToPrimaryPage(Model model, @PathVariable("id") Long id) {
-        User user = userRepository.findById(id).orElseThrow();
+    @GetMapping(":{idUser}")
+    public String getUserIdAndRedirectToPrimaryPage(Model model, @PathVariable("idUser") Long idUser) {
+        User user = userRepository.findById(idUser).orElseThrow();
         model.addAttribute("user", user);
         userRepository.save(user);
-        this.id = id;
+        this.idUser = idUser;
         this.idCandidate = lastIdCandidate;
-        idUser = id;
+        //idUser = id;
         return "redirect:/user/";
     }
 

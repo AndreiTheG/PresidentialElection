@@ -35,6 +35,10 @@ public class CandidateController {
     //Verifies if
     public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) {
         boolean isCandidate = false;
+        String sql = """
+                SELECT * FROM candidates where id = """ + user.getId() + """
+                """;
+        System.out.println(sql);
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;

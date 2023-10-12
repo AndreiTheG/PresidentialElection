@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.Comparator;
 import java.util.List;
@@ -16,21 +17,23 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/applicant/")
 public class CandidateController {
-      private UserRepository userRepository;
+      private final JdbcTemplate jdbcTemplate;
+      private final UserRepository userRepository;
       private long idUser;
-      private CandidateRepository candidateRepository;
+      private final CandidateRepository candidateRepository;
       private boolean voted = false;
       private long idCandidate;
       private long lastIdCandidate;
 
     @Autowired
-    public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository) {
+    public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository, JdbcTemplate jdbcTemplate) {
         this.userRepository = userRepository;
         this.candidateRepository = candidateRepository;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     //Verifies if
-    public void updateCandidatesList(List<Candidate> listCandidates, User user) {
+    public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) {
         boolean isCandidate = false;
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
@@ -61,7 +64,7 @@ public class CandidateController {
     public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) {
         User user = userRepository.findById(idUser).orElseThrow();
         List<Candidate> candidates = candidateRepository.findAll();
-        updateCandidatesList(candidates, user);
+        updateCandidatesListOrAddCandidate(candidates, user);
         return "redirect:/user/:" + idUser + "";
     }
 
@@ -100,7 +103,7 @@ public class CandidateController {
         Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
         List<Candidate> listCandidates = candidateRepository.findAll().stream().
                 sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
-        updateCandidatesList(listCandidates, user);
+        updateCandidatesListOrAddCandidate(listCandidates, user);
         model.addAttribute("user", user);
         model.addAttribute("candidate", candidate);
         model.addAttribute("candidates", listCandidates);

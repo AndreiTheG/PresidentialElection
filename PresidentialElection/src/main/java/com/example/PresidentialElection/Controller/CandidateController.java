@@ -58,11 +58,6 @@ public class CandidateController {
         return "redirect:/user/:" + idUser + "";
     }
 
-//    @PostMapping("{candidateId}")
-//    public String createCandidateProfilePage(@PathVariable("candidateId") Long candidateId) {
-//        return "redirect:/user/:" + candidateId + "/candidate-profile";
-//    }
-
     @GetMapping(":{idUser}/visits-candidate-profile/:{idCandidate}")
     public String candidateProfilePage(@PathVariable("idCandidate") Long idCandidate, @PathVariable("idUser") Long idUser, Model model) {
         this.idUser = idUser;

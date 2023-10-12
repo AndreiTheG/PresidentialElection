@@ -38,7 +38,8 @@ public class CandidateController {
         String sql = """
                 SELECT * FROM candidates where id = """ + user.getId() + """
                 """;
-        System.out.println(sql);
+        jdbcTemplate.execute(sql);
+        System.out.println(jdbcTemplate);
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;

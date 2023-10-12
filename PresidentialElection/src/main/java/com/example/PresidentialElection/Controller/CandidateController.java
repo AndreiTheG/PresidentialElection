@@ -5,11 +5,16 @@ import com.example.PresidentialElection.Models.User;
 import com.example.PresidentialElection.Repository.CandidateRepository;
 import com.example.PresidentialElection.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 //import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +22,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/applicant/")
 public class CandidateController {
-      //private final JdbcTemplate jdbcTemplate;
+      private final JdbcTemplate jdbcTemplate;
       private final UserRepository userRepository;
       private long idUser;
       private final CandidateRepository candidateRepository;
@@ -26,16 +31,18 @@ public class CandidateController {
       private long lastIdCandidate;
 
     @Autowired
-    public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository) {
+    public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository, JdbcTemplate jdbcTemplate) {
         this.userRepository = userRepository;
         this.candidateRepository = candidateRepository;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     //Verifies if
-    public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) {
+    public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) throws SQLException {
         boolean isCandidate = false;
+        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Users",
+                "postgres", "postgres");
         String str = "SELECT * FROM candidates WHERE id = " + user.getId() + ";";
-        System.out.println(str);
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;
@@ -62,7 +69,7 @@ public class CandidateController {
     }
 
     @GetMapping("add-candidates/:{idUser}")
-    public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) {
+    public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) throws SQLException {
         User user = userRepository.findById(idUser).orElseThrow();
         List<Candidate> candidates = candidateRepository.findAll();
         updateCandidatesListOrAddCandidate(candidates, user);
@@ -95,7 +102,7 @@ public class CandidateController {
     }
 
     @GetMapping(":{idCandidate}/candidate-profile")
-    public String candidatePageProfile(@PathVariable("idCandidate") Long candidateId, Model model){
+    public String candidatePageProfile(@PathVariable("idCandidate") Long candidateId, Model model) throws SQLException {
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }

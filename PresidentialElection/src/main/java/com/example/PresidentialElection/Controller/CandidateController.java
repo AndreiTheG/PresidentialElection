@@ -39,31 +39,15 @@ public class CandidateController {
     // then it will be updated on table. In case the user has just applied, he/she will be added
     // in the list
     public void updateCandidatesListOrAddCandidate(User user) throws SQLException {
-        //boolean isCandidate = true;
-//        for (Candidate currentCandidate : listCandidates) {
-//            if (user.getId() == currentCandidate.getId()) {
-//                isCandidate = true;
-//                currentCandidate.setName(user.getName());
-//                currentCandidate.setSurname(user.getSurname());
-//                currentCandidate.setEmail(user.getEmail());
-//                currentCandidate.setPhoneNumber(user.getPhoneNumber());
-//                currentCandidate.setUsername(user.getUsername());
-//                currentCandidate.setDescription(user.getDescription());
-//                break;
-//            }
-//        }
         Candidate candidate = candidateRepository.findById(user.getId()).orElse(new Candidate());
-//        if (!isCandidate) {
-            //Candidate candidate = new Candidate();
-            candidate.setId(user.getId());
-            candidate.setName(user.getName());
-            candidate.setSurname(user.getSurname());
-            candidate.setEmail(user.getEmail());
-            candidate.setPhoneNumber(user.getPhoneNumber());
-            candidate.setUsername(user.getUsername());
-            candidate.setDescription(user.getDescription());
-            candidateRepository.save(candidate);
-//        }
+        candidate.setId(user.getId());
+        candidate.setName(user.getName());
+        candidate.setSurname(user.getSurname());
+        candidate.setEmail(user.getEmail());
+        candidate.setPhoneNumber(user.getPhoneNumber());
+        candidate.setUsername(user.getUsername());
+        candidate.setDescription(user.getDescription());
+        candidateRepository.save(candidate);
     }
 
     @GetMapping("add-candidates/:{idUser}")

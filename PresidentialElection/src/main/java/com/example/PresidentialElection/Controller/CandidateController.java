@@ -38,15 +38,10 @@ public class CandidateController {
     //Verifies if
     public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) throws SQLException {
         boolean isCandidate = false;
-        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Users");
-        Statement statement = connection.createStatement();
-        statement.execute("SELECT * FROM candidates;");
         String sql = """
                 SELECT * FROM candidates where id = """ + user.getId() + """
 ;""";
         //jdbcTemplate.execute(sql);
-        boolean resultSet = statement.execute(sql);
-        System.out.println(resultSet);
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;

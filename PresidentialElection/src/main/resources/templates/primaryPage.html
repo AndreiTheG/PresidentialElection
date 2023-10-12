@@ -18,9 +18,9 @@
                 </button>
                 <ul class="dropdown-menu scrollable-menu" role="menu">
                     <li th:each="candidate : ${candidates}">
-                        <a class="dropdown-item" th:href="@{/applicant/:{idUser}/visits-candidate-profile/:{idCandidate}(idCandidate = ${candidate.id}, idUser=${user.id})}"
+                        <a class="dropdown-item" th:href="@{/applicant/:{idUser}/visits-candidate-profile/:{idCandidate}(idUser=${user.id}, idCandidate = ${candidate.id})}"
                            th:text="${candidate.name} + ' ' + ${candidate.surname}"></a>
-                        <a class="btn btn-success" th:href="@{/applicant/:{idUser}/votes/:{idCandidate}(idCandidate=${candidate.id}, idUser=${user.id})}">Vote</a>
+                        <a class="btn btn-success" th:href="@{/applicant/:{idUser}/votes/:{idCandidate}(idUser=${user.id}, idCandidate=${candidate.id})}">Vote</a>
                     </li>
                 </ul>
             </div>

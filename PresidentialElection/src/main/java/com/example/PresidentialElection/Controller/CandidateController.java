@@ -45,6 +45,10 @@ public class CandidateController {
         Statement statement = connection.createStatement();
         statement.executeQuery(str);
         System.out.println(statement);
+        ResultSet rs = statement.executeQuery(str);
+        while (rs.next()) {
+            System.out.println(rs.getString("Name") + " | " + rs.getString("Surname"));
+        }
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;

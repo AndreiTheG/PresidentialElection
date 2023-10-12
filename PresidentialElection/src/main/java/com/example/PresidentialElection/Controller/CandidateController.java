@@ -37,18 +37,20 @@ public class CandidateController {
     //Verifies if
     public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) throws SQLException {
         boolean isCandidate = false;
-        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Users",
-                "postgres", "postgres");
-        connection.createStatement();
-        String str = "SELECT * FROM candidates WHERE id = " + user.getId() + ";";
-        connection.prepareStatement(str);
-        Statement statement = connection.createStatement();
-        statement.executeQuery(str);
-        System.out.println(statement);
-        ResultSet rs = statement.executeQuery(str);
-        while (rs.next()) {
-            System.out.println(rs.getString("Name") + " | " + rs.getString("Surname"));
-        }
+//        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Users",
+//                "postgres", "postgres");
+//        connection.createStatement();
+//        String str = "SELECT * FROM candidates WHERE id = " + user.getId() + ";";
+//        connection.prepareStatement(str);
+//        Statement statement = connection.createStatement();
+//        statement.executeQuery(str);
+//        System.out.println(statement);
+//        ResultSet rs = statement.executeQuery(str);
+//        while (rs.next()) {
+//            System.out.println(rs.getString("Name") + " | " + rs.getString("Surname"));
+//        }
+        Candidate aplicant = candidateRepository.findById(user.getId()).orElseThrow();
+        System.out.println(aplicant);
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;

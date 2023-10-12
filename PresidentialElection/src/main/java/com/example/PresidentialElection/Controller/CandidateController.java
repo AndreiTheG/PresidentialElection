@@ -40,8 +40,6 @@ public class CandidateController {
     // in the list
     public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) throws SQLException {
         boolean isCandidate = false;
-        Optional<Candidate> applicant = candidateRepository.findById(user.getId());
-        System.out.println(applicant);
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;

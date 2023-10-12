@@ -63,9 +63,9 @@ public class CandidateController {
         return "redirect:/user/:" + candidateId + "/candidate-profile";
     }
 
-    @GetMapping("{idCandidate}/{idUser}")
-    public String candidateProfilePage(@PathVariable("idCandidate") Long idCandidate, @PathVariable("idUser") Long idUser, Model model) {
-        this.idUser = idUser;
+    @GetMapping("{idCandidate}")
+    public String candidateProfilePage(@PathVariable("idCandidate") Long idCandidate, Model model) {
+       // this.idUser = idUser;
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }

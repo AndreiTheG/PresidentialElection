@@ -63,9 +63,9 @@ public class CandidateController {
         return "redirect:/user/:" + candidateId + "/candidate-profile";
     }
 
-    @GetMapping("{idCandidate}")
-    public String candidateProfilePage(@PathVariable("idCandidate") Long idCandidate, Model model) {
-       // this.idUser = idUser;
+    @GetMapping("{idUser}/visits-candidate-profile/:{idCandidate}")
+    public String candidateProfilePage(@PathVariable("idCandidate") Long idCandidate, @PathVariable("idUser") Long idUser, Model model) {
+        this.idUser = idUser;
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }
@@ -102,9 +102,8 @@ public class CandidateController {
         return "candidatePageProfile";
     }
 
-    @GetMapping("/vote/{idCandidate}/{idUser}")
-    public String getTheVote(@PathVariable("idCandidate") Long candidateId, @PathVariable("idUser") Long idUser) {
-        voted = true;
+    @GetMapping(":{idUser}/votes/:{idCandidate}")
+    public String sendTheVoteToAnyCandidate(@PathVariable("idCandidate") Long candidateId, @PathVariable("idUser") Long idUser) {
         User user = userRepository.findById(idUser).orElseThrow();
         this.idCandidate = candidateId;
         List<Candidate> candidates = candidateRepository.findAll().stream().

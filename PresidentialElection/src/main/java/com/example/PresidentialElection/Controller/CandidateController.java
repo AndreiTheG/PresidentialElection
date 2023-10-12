@@ -76,13 +76,6 @@ public class CandidateController {
         return "redirect:/applicant/:" + idCandidate + "/candidate-profile";
     }
 
-//    @PostMapping(":{candidateId}/candidate-profile")
-//    public String createCandidatePageProfile(@PathVariable("candidateId") Long candidateId, Model model) {
-//        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
-//        model.addAttribute("candidate", candidate);
-//        return "candidatePageProfile";
-//    }
-
     @GetMapping(":{idCandidate}/candidate-profile")
     public String candidatePageProfile(@PathVariable("idCandidate") Long candidateId, Model model) throws SQLException {
         if (idUser == 0) {

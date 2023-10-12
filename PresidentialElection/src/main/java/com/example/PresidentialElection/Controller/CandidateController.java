@@ -38,22 +38,23 @@ public class CandidateController {
     //Verifies if an applicant appears in the list and in case he/she modified the description,
     // then it will be updated on table. In case the user has just applied, he/she will be added
     // in the list
-    public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) throws SQLException {
-        boolean isCandidate = false;
-        for (Candidate currentCandidate : listCandidates) {
-            if (user.getId() == currentCandidate.getId()) {
-                isCandidate = true;
-                currentCandidate.setName(user.getName());
-                currentCandidate.setSurname(user.getSurname());
-                currentCandidate.setEmail(user.getEmail());
-                currentCandidate.setPhoneNumber(user.getPhoneNumber());
-                currentCandidate.setUsername(user.getUsername());
-                currentCandidate.setDescription(user.getDescription());
-                break;
-            }
-        }
-        if (!isCandidate) {
-            Candidate candidate = new Candidate();
+    public void updateCandidatesListOrAddCandidate(User user) throws SQLException {
+        //boolean isCandidate = true;
+//        for (Candidate currentCandidate : listCandidates) {
+//            if (user.getId() == currentCandidate.getId()) {
+//                isCandidate = true;
+//                currentCandidate.setName(user.getName());
+//                currentCandidate.setSurname(user.getSurname());
+//                currentCandidate.setEmail(user.getEmail());
+//                currentCandidate.setPhoneNumber(user.getPhoneNumber());
+//                currentCandidate.setUsername(user.getUsername());
+//                currentCandidate.setDescription(user.getDescription());
+//                break;
+//            }
+//        }
+        Candidate candidate = candidateRepository.findById(user.getId()).orElse(new Candidate());
+//        if (!isCandidate) {
+            //Candidate candidate = new Candidate();
             candidate.setId(user.getId());
             candidate.setName(user.getName());
             candidate.setSurname(user.getSurname());
@@ -62,14 +63,14 @@ public class CandidateController {
             candidate.setUsername(user.getUsername());
             candidate.setDescription(user.getDescription());
             candidateRepository.save(candidate);
-        }
+//        }
     }
 
     @GetMapping("add-candidates/:{idUser}")
     public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) throws SQLException {
         User user = userRepository.findById(idUser).orElseThrow();
-        List<Candidate> candidates = candidateRepository.findAll();
-        updateCandidatesListOrAddCandidate(candidates, user);
+//        List<Candidate> candidates = candidateRepository.findAll();
+        updateCandidatesListOrAddCandidate(user);
         return "redirect:/user/:" + idUser + "";
     }
 
@@ -106,9 +107,11 @@ public class CandidateController {
         idCandidate = candidateId;
         User user = userRepository.findById(idUser).orElseThrow();
         Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
+//        List<Candidate> listCandidates = candidateRepository.findAll().stream().
+//                sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
+        updateCandidatesListOrAddCandidate(user);
         List<Candidate> listCandidates = candidateRepository.findAll().stream().
                 sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
-        updateCandidatesListOrAddCandidate(listCandidates, user);
         model.addAttribute("user", user);
         model.addAttribute("candidate", candidate);
         model.addAttribute("candidates", listCandidates);

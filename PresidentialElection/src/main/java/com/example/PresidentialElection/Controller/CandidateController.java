@@ -20,19 +20,16 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/applicant/")
 public class CandidateController {
-      private final JdbcTemplate jdbcTemplate;
       private final UserRepository userRepository;
       private long idUser;
       private final CandidateRepository candidateRepository;
-      private boolean voted = false;
       private long idCandidate;
       private long lastIdCandidate;
 
     @Autowired
-    public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository, JdbcTemplate jdbcTemplate) {
+    public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository) {
         this.userRepository = userRepository;
         this.candidateRepository = candidateRepository;
-        this.jdbcTemplate = jdbcTemplate;
     }
 
     //Verifies if an applicant appears in the list and in case he/she modified the description,

@@ -35,7 +35,6 @@ public class CandidateController {
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;
-
                 currentCandidate.setName(user.getName());
                 currentCandidate.setSurname(user.getSurname());
                 currentCandidate.setEmail(user.getEmail());
@@ -58,12 +57,12 @@ public class CandidateController {
         }
     }
 
-    @GetMapping("add-candidates/:{id}")
-    public String addAndDisplayCandidates(@PathVariable("id") Long id) {
-        User user = userRepository.findById(id).orElseThrow();
+    @GetMapping("add-candidates/:{idUser}")
+    public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) {
+        User user = userRepository.findById(idUser).orElseThrow();
         List<Candidate> candidates = candidateRepository.findAll();
         updateCandidatesList(candidates, user);
-        return "redirect:/user/:" + id + "";
+        return "redirect:/user/:" + idUser + "";
     }
 
     @PostMapping("{candidateId}")

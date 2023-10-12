@@ -53,7 +53,6 @@ public class CandidateController {
     @GetMapping("add-candidates/:{idUser}")
     public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) throws SQLException {
         User user = userRepository.findById(idUser).orElseThrow();
-//        List<Candidate> candidates = candidateRepository.findAll();
         updateCandidatesListOrAddCandidate(user);
         return "redirect:/user/:" + idUser + "";
     }
@@ -79,8 +78,6 @@ public class CandidateController {
         idCandidate = candidateId;
         User user = userRepository.findById(idUser).orElseThrow();
         Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
-//        List<Candidate> listCandidates = candidateRepository.findAll().stream().
-//                sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
         updateCandidatesListOrAddCandidate(user);
         List<Candidate> listCandidates = candidateRepository.findAll().stream().
                 sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());

@@ -35,7 +35,9 @@ public class CandidateController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    //Verifies if
+    //Verifies if an applicant appears in the list and in case he/she modified the description,
+    // then it will be updated on table. In case the user has just applied, he/she will be added
+    // in the list
     public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) throws SQLException {
         boolean isCandidate = false;
         Optional<Candidate> applicant = candidateRepository.findById(user.getId());
@@ -43,11 +45,11 @@ public class CandidateController {
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;
-//                currentCandidate.setName(user.getName());
-//                currentCandidate.setSurname(user.getSurname());
-//                currentCandidate.setEmail(user.getEmail());
-//                currentCandidate.setPhoneNumber(user.getPhoneNumber());
-//                currentCandidate.setUsername(user.getUsername());
+                currentCandidate.setName(user.getName());
+                currentCandidate.setSurname(user.getSurname());
+                currentCandidate.setEmail(user.getEmail());
+                currentCandidate.setPhoneNumber(user.getPhoneNumber());
+                currentCandidate.setUsername(user.getUsername());
                 currentCandidate.setDescription(user.getDescription());
                 break;
             }

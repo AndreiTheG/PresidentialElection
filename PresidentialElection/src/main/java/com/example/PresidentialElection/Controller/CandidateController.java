@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.*;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -49,8 +50,8 @@ public class CandidateController {
 //        while (rs.next()) {
 //            System.out.println(rs.getString("Name") + " | " + rs.getString("Surname"));
 //        }
-        Candidate aplicant = candidateRepository.findById(user.getId()).orElseThrow();
-        System.out.println(aplicant);
+        Optional<Candidate> applicant = candidateRepository.findById(user.getId());
+        System.out.println(applicant);
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;

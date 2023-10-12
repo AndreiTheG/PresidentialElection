@@ -10,9 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static jdk.javadoc.internal.tool.Main.execute;
 
 @Controller
 @RequestMapping("/applicant/")
@@ -33,13 +36,17 @@ public class CandidateController {
     }
 
     //Verifies if
-    public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) {
+    public void updateCandidatesListOrAddCandidate(List<Candidate> listCandidates, User user) throws SQLException {
         boolean isCandidate = false;
+        Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Users");
+        Statement statement = connection.createStatement();
+        statement.execute("SELECT * FROM candidates;");
         String sql = """
                 SELECT * FROM candidates where id = """ + user.getId() + """
-                """;
-        jdbcTemplate.execute(sql);
-        System.out.println(jdbcTemplate);
+;""";
+        //jdbcTemplate.execute(sql);
+        boolean resultSet = statement.execute(sql);
+        System.out.println(resultSet);
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;
@@ -66,7 +73,7 @@ public class CandidateController {
     }
 
     @GetMapping("add-candidates/:{idUser}")
-    public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) {
+    public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) throws SQLException {
         User user = userRepository.findById(idUser).orElseThrow();
         List<Candidate> candidates = candidateRepository.findAll();
         updateCandidatesListOrAddCandidate(candidates, user);
@@ -99,7 +106,7 @@ public class CandidateController {
     }
 
     @GetMapping(":{idCandidate}/candidate-profile")
-    public String candidatePageProfile(@PathVariable("idCandidate") Long candidateId, Model model){
+    public String candidatePageProfile(@PathVariable("idCandidate") Long candidateId, Model model) throws SQLException {
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }

@@ -11,10 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 //import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,7 +39,12 @@ public class CandidateController {
         boolean isCandidate = false;
         Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Users",
                 "postgres", "postgres");
+        connection.createStatement();
         String str = "SELECT * FROM candidates WHERE id = " + user.getId() + ";";
+        connection.prepareStatement(str);
+        Statement statement = connection.createStatement();
+        statement.executeQuery(str);
+        System.out.println(statement);
         for (Candidate currentCandidate : listCandidates) {
             if (user.getId() == currentCandidate.getId()) {
                 isCandidate = true;

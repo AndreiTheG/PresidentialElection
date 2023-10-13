@@ -48,7 +48,12 @@ public class CandidateController {
     @GetMapping("add-candidates/:{idUser}")
     public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) {
         User user = userRepository.findById(idUser).orElseThrow();
-        updateCandidatesListOrAddCandidate(user);
+        Candidate candidate = candidateRepository.findById(user.getId())
+                .orElse(new Candidate(user.getName(), user.getSurname(), user.getEmail()
+                        , user.getPhoneNumber(), user.getUsername(), user.getDescription(), 0));
+        candidate.setId(user.getId());
+        candidateRepository.save(candidate);
+        //updateCandidatesListOrAddCandidate(user);
         return "redirect:/user/:" + idUser + "";
     }
 

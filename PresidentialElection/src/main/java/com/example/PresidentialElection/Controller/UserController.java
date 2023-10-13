@@ -96,7 +96,8 @@ public class UserController {
         idUser = user.getId();
         List<Candidate> candidates = candidateRepository.findAll().stream()
                 .sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
-        List<Candidate> topCandidates = candidates.stream().sorted(Comparator.comparingLong(Candidate::getNrVotes).reversed()).collect(Collectors.toList());
+        List<Candidate> topCandidates = candidates.stream()
+                .sorted(Comparator.comparingLong(Candidate::getNrVotes).reversed()).collect(Collectors.toList());
         model.addAttribute("candidates", candidates);
         model.addAttribute("topCandidates", topCandidates);
         return "primaryPage";

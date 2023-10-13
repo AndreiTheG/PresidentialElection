@@ -12,33 +12,24 @@ import org.springframework.lang.NonNull;
 public class Candidate {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @Column(name = "Name")
     @NonNull
     private String name;
-
-
     @Column(name = "Surname")
     @NonNull
     private String surname;
-
     @Column(name = "Email")
     @NonNull
     private String email;
-
     @Column(name = "Phone No.")
     @NonNull
     private String phoneNumber;
-
     @Column(name = "Username")
     @NonNull
     private String username;
-
     @Column(name="Description")
     private String description;
-
     @Column(name="Number Votes")
     private long nrVotes = 0;
 

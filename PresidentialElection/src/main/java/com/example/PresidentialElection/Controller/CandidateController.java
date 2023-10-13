@@ -39,6 +39,7 @@ public class CandidateController {
                 .orElse(new Candidate(user.getName(), user.getSurname(), user.getEmail()
                         , user.getPhoneNumber(), user.getUsername(), user.getDescription(), 0));
         candidate.setId(user.getId());
+        candidate.setDescription(user.getDescription());
         candidateRepository.save(candidate);
     }
 
@@ -79,6 +80,9 @@ public class CandidateController {
         return "candidatePageProfile";
     }
 
+    //A user has the right to vote once one of the applicants. His/her vote will be added
+    //to total number of votes of the chosen applicant this method will be redirected to
+    //home page with changes.
     @GetMapping(":{idUser}/votes/:{idCandidate}")
     public String sendTheVoteToAnyCandidate(@PathVariable("idCandidate") long candidateId, @PathVariable("idUser") long idUser) {
         User user = userRepository.findById(idUser).orElseThrow();

@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class UserController {
     private UserRepository userRepository;
     private Boolean choseRegister = false;
-   // private long id;
     private long idUser;
     private CandidateRepository candidateRepository;
     private long idCandidate;
@@ -129,7 +128,6 @@ public class UserController {
         userRepository.save(user);
         this.idUser = idUser;
         this.idCandidate = lastIdCandidate;
-        //idUser = id;
         return "redirect:/user/";
     }
 

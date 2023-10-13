@@ -44,7 +44,7 @@ public class CandidateController {
         candidateRepository.save(candidate);
     }
 
-    // The user registers as an applicant and he will be displayed in the list of applicants
+    // The user registers as an applicant and will be displayed in the list of applicants
     @GetMapping("add-candidates/:{idUser}")
     public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) {
         User user = userRepository.findById(idUser).orElseThrow();

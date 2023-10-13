@@ -52,7 +52,7 @@ public class CandidateController {
 
     // Save the values of the id of user and the id of the current applicant so we can
     // display the username of the user and the details of the applicant when the method will
-    // redirect to "applicant/:{idCandidate}/candidate-profile"
+    // redirect to "applicant/:{idCandidate}/candidate-page-profile"
     @GetMapping(":{idUser}/visits-candidate-profile/:{idCandidate}")
     public String candidateProfilePage(@PathVariable("idCandidate") long idCandidate, @PathVariable("idUser") long idUser) {
         this.idUser = idUser;

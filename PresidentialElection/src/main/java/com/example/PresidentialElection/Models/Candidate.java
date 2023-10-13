@@ -44,7 +44,7 @@ public class Candidate {
 
     public Candidate() {}
 
-    public Candidate(@NonNull String name, @NonNull String surname, @NonNull String email, @NonNull String phoneNumber, @NonNull String username, String description, Long nrVotes) {
+    public Candidate(@NonNull String name, @NonNull String surname, @NonNull String email, @NonNull String phoneNumber, @NonNull String username, String description, long nrVotes) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -116,8 +116,7 @@ public class Candidate {
         this.description = description;
     }
 
-    @NonNull
-    public Long getNrVotes() {
+    public long getNrVotes() {
         return nrVotes;
     }
 

@@ -36,14 +36,16 @@ public class CandidateController {
     // then it will be updated on table. In case the user has just applied, he/she will be added
     // in the list
     public void updateCandidatesListOrAddCandidate(User user) throws SQLException {
-        Candidate candidate = candidateRepository.findById(user.getId()).orElse(new Candidate());
+        Candidate candidate = candidateRepository.findById(user.getId())
+                .orElse(new Candidate(user.getName(), user.getSurname(), user.getEmail()
+                        , user.getPhoneNumber(), user.getUsername(), user.getDescription(), 0));
         candidate.setId(user.getId());
-        candidate.setName(user.getName());
-        candidate.setSurname(user.getSurname());
-        candidate.setEmail(user.getEmail());
-        candidate.setPhoneNumber(user.getPhoneNumber());
-        candidate.setUsername(user.getUsername());
-        candidate.setDescription(user.getDescription());
+//        candidate.setName(user.getName());
+//        candidate.setSurname(user.getSurname());
+//        candidate.setEmail(user.getEmail());
+//        candidate.setPhoneNumber(user.getPhoneNumber());
+//        candidate.setUsername(user.getUsername());
+//        candidate.setDescription(user.getDescription());
         candidateRepository.save(candidate);
     }
 

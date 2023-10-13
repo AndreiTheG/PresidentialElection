@@ -55,7 +55,7 @@ public class CandidateController {
     // display the username of the user and the details of the applicant when the method will
     // redirect to "applicant/:{idCandidate}/candidate-page-profile"
     @GetMapping(":{idUser}/visits-candidate-profile/:{idCandidate}")
-    public String candidateProfilePage(@PathVariable("idCandidate") long idCandidate, @PathVariable("idUser") long idUser) {
+    public String getAccessToCandidateProfilePage(@PathVariable("idCandidate") long idCandidate, @PathVariable("idUser") long idUser) {
         this.idUser = idUser;
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
@@ -63,9 +63,9 @@ public class CandidateController {
         return "redirect:/applicant/:" + idCandidate + "/candidate-page-profile";
     }
 
-    // Display the profile page of the candidate
+    // Display the profile page of the candidate with the id equal to
     @GetMapping(":{idCandidate}/candidate-page-profile")
-    public String candidatePageProfile(@PathVariable("idCandidate") long candidateId, Model model) {
+    public String openCandidatePageProfile(@PathVariable("idCandidate") long candidateId, Model model) {
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }
@@ -85,7 +85,7 @@ public class CandidateController {
     //to total number of votes of the chosen applicant this method will be redirected to
     //home page with changes.
     @GetMapping(":{idUser}/votes/:{idCandidate}")
-    public String sendTheVoteToAnyCandidate(@PathVariable("idCandidate") long candidateId, @PathVariable("idUser") long idUser) {
+    public String sendTheVoteToCandidate(@PathVariable("idCandidate") long candidateId, @PathVariable("idUser") long idUser) {
         User user = userRepository.findById(idUser).orElseThrow();
         this.idCandidate = candidateId;
         List<Candidate> candidates = candidateRepository.findAll().stream().

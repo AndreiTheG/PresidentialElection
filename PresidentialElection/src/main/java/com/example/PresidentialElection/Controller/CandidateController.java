@@ -40,12 +40,6 @@ public class CandidateController {
                 .orElse(new Candidate(user.getName(), user.getSurname(), user.getEmail()
                         , user.getPhoneNumber(), user.getUsername(), user.getDescription(), 0));
         candidate.setId(user.getId());
-//        candidate.setName(user.getName());
-//        candidate.setSurname(user.getSurname());
-//        candidate.setEmail(user.getEmail());
-//        candidate.setPhoneNumber(user.getPhoneNumber());
-//        candidate.setUsername(user.getUsername());
-//        candidate.setDescription(user.getDescription());
         candidateRepository.save(candidate);
     }
 
@@ -57,7 +51,7 @@ public class CandidateController {
     }
 
     @GetMapping(":{idUser}/visits-candidate-profile/:{idCandidate}")
-    public String candidateProfilePage(@PathVariable("idCandidate") Long idCandidate, @PathVariable("idUser") Long idUser, Model model) {
+    public String candidateProfilePage(@PathVariable("idCandidate") long idCandidate, @PathVariable("idUser") Long idUser, Model model) {
         this.idUser = idUser;
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
@@ -70,7 +64,7 @@ public class CandidateController {
     }
 
     @GetMapping(":{idCandidate}/candidate-profile")
-    public String candidatePageProfile(@PathVariable("idCandidate") Long candidateId, Model model) throws SQLException {
+    public String candidatePageProfile(@PathVariable("idCandidate") long candidateId, Model model) throws SQLException {
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }
@@ -87,7 +81,7 @@ public class CandidateController {
     }
 
     @GetMapping(":{idUser}/votes/:{idCandidate}")
-    public String sendTheVoteToAnyCandidate(@PathVariable("idCandidate") Long candidateId, @PathVariable("idUser") Long idUser) {
+    public String sendTheVoteToAnyCandidate(@PathVariable("idCandidate") long candidateId, @PathVariable("idUser") long idUser) {
         User user = userRepository.findById(idUser).orElseThrow();
         this.idCandidate = candidateId;
         List<Candidate> candidates = candidateRepository.findAll().stream().

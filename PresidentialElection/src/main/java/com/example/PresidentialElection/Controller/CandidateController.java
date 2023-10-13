@@ -80,7 +80,7 @@ public class CandidateController {
         return "candidatePageProfile";
     }
 
-    //A user has the right to vote once one of the applicants. His/her vote will be added
+    //A user with idUser has the right to vote once one of the applicants with idCandidate. His/her vote will be added
     //to total number of votes of the chosen applicant this method will be redirected to
     //home page with changes.
     @GetMapping(":{idUser}/votes/:{idCandidate}")

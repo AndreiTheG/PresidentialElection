@@ -5,6 +5,7 @@ import com.example.PresidentialElection.Models.User;
 import com.example.PresidentialElection.Repository.CandidateRepository;
 import com.example.PresidentialElection.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +35,7 @@ public class CandidateController {
     //Verifies if an applicant appears in the list and in case he/she modified the description,
     // then it will be updated on table. In case the user has just applied, he/she will be added
     // in the list
-    public void updateCandidatesListOrAddCandidate(User user) throws SQLException {
+    public void updateCandidatesListOrAddCandidate(User user) {
         Candidate candidate = candidateRepository.findById(user.getId())
                 .orElse(new Candidate(user.getName(), user.getSurname(), user.getEmail()
                         , user.getPhoneNumber(), user.getUsername(), user.getDescription(), 0));
@@ -44,7 +45,7 @@ public class CandidateController {
     }
 
     @GetMapping("add-candidates/:{idUser}")
-    public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) throws SQLException {
+    public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) {
         User user = userRepository.findById(idUser).orElseThrow();
         updateCandidatesListOrAddCandidate(user);
         return "redirect:/user/:" + idUser + "";
@@ -64,7 +65,7 @@ public class CandidateController {
 
     // Display the profile page of the candidate
     @GetMapping(":{idCandidate}/candidate-page-profile")
-    public String candidatePageProfile(@PathVariable("idCandidate") long candidateId, Model model) throws SQLException {
+    public String candidatePageProfile(@PathVariable("idCandidate") long candidateId, Model model) {
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }

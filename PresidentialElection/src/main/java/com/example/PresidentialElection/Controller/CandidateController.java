@@ -32,7 +32,7 @@ public class CandidateController {
         this.candidateRepository = candidateRepository;
     }
 
-    //Verifies if an applicant appears in the list and in case he/she modified the description,
+    // Verify if an applicant appears in the list and in case he/she modified the description,
     // then it will be updated on table. In case the user has just applied, he/she will be added
     // in the list
     public void updateCandidatesListOrAddCandidate(User user) {
@@ -44,6 +44,7 @@ public class CandidateController {
         candidateRepository.save(candidate);
     }
 
+    // The user registers as an applicant and he will be displayed in the list of applicants
     @GetMapping("add-candidates/:{idUser}")
     public String addAndDisplayCandidates(@PathVariable("idUser") Long idUser) {
         User user = userRepository.findById(idUser).orElseThrow();
@@ -63,7 +64,7 @@ public class CandidateController {
         return "redirect:/applicant/:" + idCandidate + "/candidate-page-profile";
     }
 
-    // Display the profile page of the candidate with the id equal to
+    // Display the profile page of the candidate with the id equal to the value of idCandidate
     @GetMapping(":{idCandidate}/candidate-page-profile")
     public String openCandidatePageProfile(@PathVariable("idCandidate") long candidateId, Model model) {
         if (idUser == 0) {
@@ -81,9 +82,9 @@ public class CandidateController {
         return "candidatePageProfile";
     }
 
-    //A user with idUser has the right to vote once one of the applicants with idCandidate. His/her vote will be added
-    //to total number of votes of the chosen applicant this method will be redirected to
-    //home page with changes.
+    // A user with idUser has the right to vote once one of the applicants with idCandidate.
+    // His/her vote will be added to total number of votes of the chosen applicant this method
+    // will be redirected to home page with changes.
     @GetMapping(":{idUser}/votes/:{idCandidate}")
     public String sendTheVoteToCandidate(@PathVariable("idCandidate") long candidateId, @PathVariable("idUser") long idUser) {
         User user = userRepository.findById(idUser).orElseThrow();

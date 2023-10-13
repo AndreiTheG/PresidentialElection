@@ -56,10 +56,6 @@ public class CandidateController {
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }
-        User user = userRepository.findById(idUser).orElseThrow();
-        List<Candidate> listOfCandidates = candidateRepository.findAll();
-        //model.addAttribute("user", user);
-        //model.addAttribute("candidates", listOfCandidates);
         return "redirect:/applicant/:" + idCandidate + "/candidate-profile";
     }
 

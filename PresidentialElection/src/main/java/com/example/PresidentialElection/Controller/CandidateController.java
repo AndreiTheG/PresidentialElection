@@ -50,19 +50,21 @@ public class CandidateController {
         return "redirect:/user/:" + idUser + "";
     }
 
+    // Save the values of the id of user and the id of the current applicant so we can
+    // display the username of the user and the details of the applicant when the method will
+    // redirect to "applicant/:{idCandidate}/candidate-profile"
     @GetMapping(":{idUser}/visits-candidate-profile/:{idCandidate}")
     public String candidateProfilePage(@PathVariable("idCandidate") long idCandidate, @PathVariable("idUser") long idUser) {
-        //this.idUser = idUser;
-        System.out.println(idUser);
+        this.idUser = idUser;
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }
         return "redirect:/applicant/:" + idCandidate + "/candidate-profile";
     }
 
-    @GetMapping(":{idCandidate}/candidate-profile")
+    // Display the profile page of the candidate
+    @GetMapping(":{idCandidate}/candidate-page-profile")
     public String candidatePageProfile(@PathVariable("idCandidate") long candidateId, Model model) throws SQLException {
-        System.out.println(idUser);
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }

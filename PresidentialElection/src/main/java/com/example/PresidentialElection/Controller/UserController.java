@@ -138,7 +138,8 @@ public class UserController {
         User user = userRepository.findById(id).orElseThrow();
         user.setDescription(currentUser.getDescription());
         model.addAttribute("user", user);
-        List<Candidate> listCandidates = candidateRepository.findAll();
+        List<Candidate> listCandidates = candidateRepository.findAll().stream()
+                .sorted(Comparator.comparingLong(Candidate::getId)).toList();
         model.addAttribute("candidates", listCandidates);
         userRepository.save(user);
         return "pageProfile";
@@ -149,7 +150,8 @@ public class UserController {
     public String openPageProfile(@PathVariable("id") Long id, Model model) {
         User user = userRepository.findById(id).orElseThrow();
         model.addAttribute("user", user);
-        List<Candidate> listCandidates = candidateRepository.findAll();
+        List<Candidate> listCandidates = candidateRepository.findAll().stream()
+                .sorted(Comparator.comparingLong(Candidate::getId)).toList();
         model.addAttribute("candidates", listCandidates);
         return "pageProfile";
     }

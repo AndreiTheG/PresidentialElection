@@ -51,7 +51,7 @@ public class CandidateController {
     }
 
     @GetMapping(":{idUser}/visits-candidate-profile/:{idCandidate}")
-    public String candidateProfilePage(@PathVariable("idCandidate") long idCandidate, @PathVariable("idUser") long idUser, Model model) {
+    public String candidateProfilePage(@PathVariable("idCandidate") long idCandidate, @PathVariable("idUser") long idUser) {
         //this.idUser = idUser;
         System.out.println(idUser);
         if (idUser == 0) {
@@ -62,6 +62,7 @@ public class CandidateController {
 
     @GetMapping(":{idCandidate}/candidate-profile")
     public String candidatePageProfile(@PathVariable("idCandidate") long candidateId, Model model) throws SQLException {
+        System.out.println(idUser);
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }

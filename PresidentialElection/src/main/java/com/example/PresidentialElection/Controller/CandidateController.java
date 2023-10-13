@@ -52,7 +52,7 @@ public class CandidateController {
 
     @GetMapping(":{idUser}/visits-candidate-profile/:{idCandidate}")
     public String candidateProfilePage(@PathVariable("idCandidate") long idCandidate, @PathVariable("idUser") Long idUser, Model model) {
-        this.idUser = idUser;
+        //this.idUser = idUser;
         if (idUser == 0) {
             return "redirect:/user/login-or-register";
         }

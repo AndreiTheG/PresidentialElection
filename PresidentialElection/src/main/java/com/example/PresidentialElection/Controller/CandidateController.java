@@ -24,7 +24,6 @@ public class CandidateController {
       private long idUser;
       private final CandidateRepository candidateRepository;
       private long idCandidate;
-      private long lastIdCandidate;
 
     @Autowired
     public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository) {
@@ -85,10 +84,10 @@ public class CandidateController {
         User user = userRepository.findById(idUser).orElseThrow();
         this.idCandidate = candidateId;
         List<Candidate> candidates = candidateRepository.findAll().stream().
-                sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
+                sorted(Comparator.comparingLong(Candidate::getId)).toList();
         for (Candidate candidate : candidates) {
             candidateRepository.save(candidate);
-            if (candidate.getId() == this.idCandidate && user.getVoted() == false) {
+            if (candidate.getId() == this.idCandidate && !user.getVoted()) {
                 long nrVotes = candidate.getNrVotes();
                 ++nrVotes;
                 candidate.setNrVotes(nrVotes);
@@ -97,7 +96,6 @@ public class CandidateController {
                 candidateRepository.save(candidate);
             }
         }
-        lastIdCandidate = candidateId;
         return "redirect:/user/:" + idUser + "";
     }
 }

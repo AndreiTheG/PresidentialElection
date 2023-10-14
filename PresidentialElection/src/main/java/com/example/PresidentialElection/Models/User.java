@@ -144,18 +144,4 @@ public class User implements Serializable {
                 ", voted=" + voted +
                 '}';
     }
-
-    //    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", email='" + email + '\'' +
-//                ", phoneNumber='" + phoneNumber + '\'' +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", description='" + description + '\'' +
-//                '}';
-//    }
 }

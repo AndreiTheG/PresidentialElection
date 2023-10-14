@@ -53,7 +53,6 @@ public class CandidateController {
                         , user.getPhoneNumber(), user.getUsername(), user.getDescription(), 0));
         candidate.setId(user.getId());
         candidateRepository.save(candidate);
-        //updateCandidatesListOrAddCandidate(user);
         return "redirect:/user/:" + idUser + "";
     }
 

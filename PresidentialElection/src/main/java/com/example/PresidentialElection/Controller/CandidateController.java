@@ -20,17 +20,18 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/candidate/")
-public class CandidateController {
-      private final UserRepository userRepository;
+public class CandidateController extends UserController {
+      private UserRepository userRepository;
       private long userId;
       private User newUser;
-      private final CandidateRepository candidateRepository;
+      private CandidateRepository candidateRepository;
       private long candidateId;
 
-    @Autowired
+//    @Autowired
     public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository) {
-        this.userRepository = userRepository;
-        this.candidateRepository = candidateRepository;
+//        this.userRepository = userRepository;
+//        this.candidateRepository = candidateRepository;
+        super(userRepository, candidateRepository);
     }
 
     // Verify if an applicant appears in the list and in case he/she modified the description,
@@ -77,10 +78,6 @@ public class CandidateController {
     // Display the profile page of the candidate with the id equal to the value of idCandidate
     @GetMapping(":{candidateId}/candidate-page-profile")
     public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model) {
-        User newUser = new User();
-        saveUser(newUser);
-        UserController userController = new UserController(userRepository, candidateRepository);
-        System.out.println(userController.getUser());
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }

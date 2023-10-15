@@ -96,9 +96,9 @@ public class UserController {
     // its username in the navbar.
     @PostMapping("")
     public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model) {
-        currentUser = user;
-        System.out.println(user.getId());
         findTheUser(user);
+        currentUser = user;
+        System.out.println(currentUser.getId());
         if (choseRegister) {
             userRepository.save(user);
         } else if (user.getId() == 0) {

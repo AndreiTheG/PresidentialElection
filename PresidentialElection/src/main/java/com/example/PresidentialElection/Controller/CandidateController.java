@@ -48,6 +48,7 @@ public class CandidateController {
     @GetMapping(":{userId}/add-candidates")
     public String addAndDisplayCandidates(@PathVariable("userId") Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
+        System.out.println(userId);
         Candidate candidate = candidateRepository.findById(user.getId())
                 .orElse(new Candidate(user.getName(), user.getSurname(), user.getEmail()
                         , user.getPhoneNumber(), user.getUsername(), user.getDescription(), 0));

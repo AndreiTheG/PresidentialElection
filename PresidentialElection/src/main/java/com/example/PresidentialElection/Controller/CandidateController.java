@@ -80,7 +80,7 @@ public class CandidateController {
         User newUser = new User();
         saveUser(newUser);
         UserController userController = new UserController(userRepository, candidateRepository);
-        System.out.println(userRepository.findAll());
+        System.out.println(userController.getUser());
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }
@@ -94,6 +94,10 @@ public class CandidateController {
         model.addAttribute("candidate", candidate);
         model.addAttribute("candidates", listCandidates);
         return "candidatePageProfile";
+    }
+
+    public User getUser() {
+        return userRepository.findById(userId).orElseThrow();
     }
 
     // A user with idUser has the right to vote once one of the applicants with idCandidate.

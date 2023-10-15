@@ -75,6 +75,7 @@ public class CandidateController {
     // Display the profile page of the candidate with the id equal to the value of idCandidate
     @GetMapping(":{candidateId}/candidate-page-profile")
     public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model) {
+        UserController userController = new UserController(userRepository, candidateRepository);
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }

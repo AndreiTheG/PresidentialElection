@@ -33,8 +33,9 @@ public class UserController {
         this.candidateRepository = candidateRepository;
     }
 
-    public long getUserId() {
-        System.out.println(userId);
+    public long getUserId(long newUserId) {
+        newUserId = userId;
+        System.out.println(newUserId);
         return userId;
     }
 

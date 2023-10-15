@@ -73,7 +73,9 @@ public class CandidateController {
     @GetMapping(":{candidateId}/candidate-page-profile")
     public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model) {
         UserController userController = new UserController(userRepository, candidateRepository);
-        System.out.println(userController.getUserId());
+        User newUser = new User();
+        long newUserId = newUser.getId();
+        System.out.println(userController.getUserId(newUserId));
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }

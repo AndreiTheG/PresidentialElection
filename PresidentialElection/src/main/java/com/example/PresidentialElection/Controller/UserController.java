@@ -27,16 +27,16 @@ public class UserController {
     private long candidateId;
     private long lastIdCandidate;
 
+    private User currentUser;
+
     @Autowired
     public UserController(UserRepository userRepository, CandidateRepository candidateRepository) {
         this.userRepository = userRepository;
         this.candidateRepository = candidateRepository;
     }
 
-    public long getUserId(User newUser) {
-        newUser.setId(this.userId);
-        //System.out.println(newUserId);
-        return this.userId;
+    public User getUser() {
+        return currentUser;
     }
 
     //Open the page with login and register options
@@ -92,6 +92,7 @@ public class UserController {
     // its username in the navbar.
     @PostMapping("")
     public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model) {
+        currentUser = user;
         findTheUser(user);
         if (choseRegister) {
             userRepository.save(user);

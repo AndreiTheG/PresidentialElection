@@ -98,7 +98,7 @@ public class UserController {
         findTheUser(user);
         currentUser = user;
         CandidateController candidateController = new CandidateController(userRepository, candidateRepository);
-        candidateController.saveUser(user);
+        //candidateController.saveUser(user);
         if (choseRegister) {
             userRepository.save(user);
         } else if (user.getId() == 0) {

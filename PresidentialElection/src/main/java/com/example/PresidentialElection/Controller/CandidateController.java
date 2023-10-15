@@ -20,18 +20,18 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/candidate/")
-public class CandidateController extends UserController {
-      private UserRepository userRepository;
+public class CandidateController {
+      private final UserRepository userRepository;
       private long userId;
       private User newUser;
-      private CandidateRepository candidateRepository;
+      private final CandidateRepository candidateRepository;
       private long candidateId;
 
 //    @Autowired
     public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository) {
-//        this.userRepository = userRepository;
-//        this.candidateRepository = candidateRepository;
-        super(userRepository, candidateRepository);
+        this.userRepository = userRepository;
+        this.candidateRepository = candidateRepository;
+        //super(userRepository, candidateRepository);
     }
 
     // Verify if an applicant appears in the list and in case he/she modified the description,
@@ -62,24 +62,19 @@ public class CandidateController extends UserController {
     // Save the values of the id of user and the id of the current applicant so we can
     // display the username of the user and the details of the applicant when the method will
     // redirect to "applicant/:{idCandidate}/candidate-page-profile"
-//    @GetMapping("visits-candidate-profile/:{candidateId}")
-//    public String getAccessToCandidateProfilePage(/*@PathVariable("userId") long userId,*/ @PathVariable("candidateId") long candidateId) {
-//        //this.userId = userId;
-//        if (this.userId == 0) {
-//            return "redirect:/user/login-or-register";
-//        }
-//        return "redirect:/candidate/:" + candidateId + "/candidate-page-profile";
-//    }
-
-    public void saveUser(User user) {
-        this.newUser = user;
+    @GetMapping(":{userId}/visits-candidate-profile/:{candidateId}")
+    public String getAccessToCandidateProfilePage(@PathVariable("userId") long userId, @PathVariable("candidateId") long candidateId) {
+        this.userId = userId;
+        if (this.userId == 0) {
+            return "redirect:/user/login-or-register";
+        }
+        return "redirect:/candidate/:" + candidateId + "/candidate-page-profile";
     }
+
 
     // Display the profile page of the candidate with the id equal to the value of idCandidate
     @GetMapping(":{candidateId}/candidate-page-profile")
     public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model) {
-        UserController userController = new UserController(userRepository, candidateRepository);
-        System.out.println(userController.getUser());
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }

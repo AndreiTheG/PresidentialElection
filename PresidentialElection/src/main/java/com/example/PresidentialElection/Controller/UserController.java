@@ -23,7 +23,7 @@ public class UserController {
     private UserRepository userRepository;
     private Boolean choseRegister = false;
     private CandidateRepository candidateRepository;
-    private long userId;
+    public long userId;
     private long candidateId;
     private long lastIdCandidate;
     private User currentUser;
@@ -105,7 +105,7 @@ public class UserController {
             return "redirect:/user/login-error";
         }
         userRepository.save(user);
-        userId = user.getId();
+        this.userId = user.getId();
         List<Candidate> candidates = candidateRepository.findAll().stream()
                 .sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
         List<Candidate> topCandidates = candidates.stream()

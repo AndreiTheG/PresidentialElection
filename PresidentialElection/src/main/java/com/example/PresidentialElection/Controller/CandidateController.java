@@ -79,6 +79,8 @@ public class CandidateController {
     public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model) {
         User newUser = new User();
         saveUser(newUser);
+        UserController userController = new UserController(userRepository, candidateRepository);
+        System.out.println(userController.userId);
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }

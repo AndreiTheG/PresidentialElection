@@ -33,6 +33,11 @@ public class UserController {
         this.candidateRepository = candidateRepository;
     }
 
+    public long getUserId() {
+        System.out.println(userId);
+        return userId;
+    }
+
     //Open the page with login and register options
     @GetMapping("login-or-register")
     public String getLoginRegister() {

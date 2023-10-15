@@ -27,7 +27,7 @@
             <form>
                 <i class="bi bi-person-circle"></i>
                 <a class="navbar-brand" th:href="@{/user/:{userId}/page-profile(userId=${user.id})}" th:text="${user.username}"></a>
-                <a class="btn btn-primary" th:href="@{/candidate/:{userId}/add-candidates/(userId=${user.id})}">Candidate</a>
+                <a class="btn btn-primary" th:href="@{/candidate/:{userId}/add-candidates(userId=${user.id})}">Candidate</a>
                 <a class="btn btn-danger" href="/user/login-or-register">Log out</a>
             </form>
         </div>

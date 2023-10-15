@@ -80,6 +80,7 @@ public class CandidateController {
         User newUser = new User();
         saveUser(newUser);
         UserController userController = new UserController(userRepository, candidateRepository);
+        System.out.println(userRepository.findAll());
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }

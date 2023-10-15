@@ -97,7 +97,7 @@ public class CandidateController {
     }
 
     public User getUser() {
-        return userRepository.findById(userId).orElseThrow();
+        return userRepository.findById(this.userId).orElseThrow();
     }
 
     // A user with idUser has the right to vote once one of the applicants with idCandidate.

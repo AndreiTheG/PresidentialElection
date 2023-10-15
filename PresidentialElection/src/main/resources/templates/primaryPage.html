@@ -11,23 +11,23 @@
 <body>
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/user/:{id}(id=${user.id})}">Presidential Election</a>
+            <a class="navbar-brand" th:href="@{/user/:{userId}(id=${user.id})}">Presidential Election</a>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Dropdown button
                 </button>
                 <ul class="dropdown-menu scrollable-menu" role="menu">
                     <li th:each="candidate : ${candidates}">
-                        <a class="dropdown-item" th:href="@{/applicant/:{idUser}/visits-candidate-profile/:{idCandidate}(idUser=${user.id}, idCandidate = ${candidate.id})}"
+                        <a class="dropdown-item" th:href="@{/candidate/:{userId}/visits-candidate-profile/:{candidateId}(userId=${user.id}, candidateId = ${candidate.id})}"
                            th:text="${candidate.name} + ' ' + ${candidate.surname}"></a>
-                        <a class="btn btn-success" th:href="@{/applicant/:{idUser}/votes/:{idCandidate}(idUser=${user.id}, idCandidate=${candidate.id})}">Vote</a>
+                        <a class="btn btn-success" th:href="@{/candidate/:{userId}/votes/:{candidateId}(userId = ${user.id}, candidateId = ${candidate.id})}">Vote</a>
                     </li>
                 </ul>
             </div>
             <form>
                 <i class="bi bi-person-circle"></i>
-                <a class="navbar-brand" th:href="@{/user/:{id}/page-profile(id=${user.id})}" th:text="${user.username}"></a>
-                <a class="btn btn-primary" th:href="@{/applicant/add-candidates/:{idUser}(idUser=${user.id})}">Candidate</a>
+                <a class="navbar-brand" th:href="@{/user/:{userId}/page-profile(userId=${user.id})}" th:text="${user.username}"></a>
+                <a class="btn btn-primary" th:href="@{/candidate/:{userId}/add-candidates/(userId=${user.id})}">Candidate</a>
                 <a class="btn btn-danger" href="/user/login-or-register">Log out</a>
             </form>
         </div>

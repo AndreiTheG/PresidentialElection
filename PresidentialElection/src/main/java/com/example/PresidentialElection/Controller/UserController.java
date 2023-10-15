@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 public class UserController {
     private UserRepository userRepository;
     private Boolean choseRegister = false;
-    private long idUser;
+    private long userId;
     private CandidateRepository candidateRepository;
-    private long idCandidate;
+    private long candidateId;
     private long lastIdCandidate;
 
     @Autowired
@@ -93,7 +93,7 @@ public class UserController {
             return "redirect:/user/login-error";
         }
         userRepository.save(user);
-        idUser = user.getId();
+        userId = user.getId();
         List<Candidate> candidates = candidateRepository.findAll().stream()
                 .sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
         List<Candidate> topCandidates = candidates.stream()
@@ -107,8 +107,8 @@ public class UserController {
     @GetMapping("")
     public String getPrimaryPage(Model model) {
         model.addAttribute("user", new User());
-        if (this.idUser != 0) {
-            User user = userRepository.findById(this.idUser).orElseThrow();
+        if (this.userId != 0) {
+            User user = userRepository.findById(this.userId).orElseThrow();
             model.addAttribute("user", user);
             List<Candidate> candidates = candidateRepository.findAll().stream()
                     .sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
@@ -122,20 +122,20 @@ public class UserController {
     }
 
     //Press the navbar-brand and the page will go back to primary page
-    @GetMapping(":{idUser}")
-    public String getUserIdAndRedirectToPrimaryPage(Model model, @PathVariable("idUser") Long idUser) {
-        User user = userRepository.findById(idUser).orElseThrow();
+    @GetMapping(":{userId}")
+    public String getUserIdAndRedirectToPrimaryPage(Model model, @PathVariable("userId") Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
         model.addAttribute("user", user);
         userRepository.save(user);
-        this.idUser = idUser;
-        this.idCandidate = lastIdCandidate;
+        this.userId = userId;
+        this.candidateId = lastIdCandidate;
         return "redirect:/user/";
     }
 
     //Display the page profile after the modifications of the user's description
-    @PostMapping(":{id}/page-profile")
-    public String saveTheModifiedDataOfPageProfile(@PathVariable("id") Long id, Model model, User currentUser) {
-        User user = userRepository.findById(id).orElseThrow();
+    @PostMapping(":{userId}/page-profile")
+    public String saveTheModifiedDataOfPageProfile(@PathVariable("userId") Long userId, Model model, User currentUser) {
+        User user = userRepository.findById(userId).orElseThrow();
         user.setDescription(currentUser.getDescription());
         model.addAttribute("user", user);
         List<Candidate> listCandidates = candidateRepository.findAll().stream()
@@ -146,9 +146,9 @@ public class UserController {
     }
 
     //Display the Profile page with the current information of the user
-    @GetMapping(":{id}/page-profile")
-    public String openPageProfile(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow();
+    @GetMapping(":{userId}/page-profile")
+    public String openPageProfile(@PathVariable("userId") Long userId, Model model) {
+        User user = userRepository.findById(userId).orElseThrow();
         model.addAttribute("user", user);
         List<Candidate> listCandidates = candidateRepository.findAll().stream()
                 .sorted(Comparator.comparingLong(Candidate::getId)).toList();
@@ -156,9 +156,9 @@ public class UserController {
         return "pageProfile";
     }
 
-    @GetMapping(":{id}/update-description")
-    public String getDerivedDescription(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow();
+    @GetMapping(":{userId}/update-description")
+    public String getDerivedDescription(@PathVariable("userId") Long userId, Model model) {
+        User user = userRepository.findById(userId).orElseThrow();
         model.addAttribute("user", user);
         return "updateDescription";
     }

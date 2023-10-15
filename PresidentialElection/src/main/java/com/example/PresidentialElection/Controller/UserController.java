@@ -39,6 +39,10 @@ public class UserController {
         return currentUser;
     }
 
+    public void setUser(User user) {
+        this.currentUser = user;
+    }
+
     //Open the page with login and register options
     @GetMapping("login-or-register")
     public String getLoginRegister() {

@@ -75,7 +75,7 @@ public class CandidateController {
         UserController userController = new UserController(userRepository, candidateRepository);
         User newUser = new User();
         long newUserId = newUser.getId();
-        System.out.println(userController.getUserId(newUserId));
+        System.out.println(userController.getUserId(newUser));
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }

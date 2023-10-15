@@ -33,9 +33,9 @@ public class UserController {
         this.candidateRepository = candidateRepository;
     }
 
-    public long getUserId(long newUserId) {
-        newUserId = userId;
-        System.out.println(newUserId);
+    public long getUserId(User newUser) {
+        newUser.setId(userId);
+        //System.out.println(newUserId);
         return userId;
     }
 

@@ -65,7 +65,7 @@ public class CandidateController {
         if (userId == 0) {
             return "redirect:/user/login-or-register";
         }
-        return "redirect:/applicant/:" + idCandidate + "/candidate-page-profile";
+        return "redirect:/candidate/:" + idCandidate + "/candidate-page-profile";
     }
 
     // Display the profile page of the candidate with the id equal to the value of idCandidate

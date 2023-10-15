@@ -76,8 +76,8 @@ public class CandidateController {
             return "redirect:/user/login-or-register";
         }
         this.candidateId = candidateId;
-        User user = userRepository.findById(userId).orElseThrow();
-        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow();
+        User user = userRepository.findById(this.userId).orElseThrow();
+        Candidate candidate = candidateRepository.findById(this.candidateId).orElseThrow();
         updateCandidatesListOrAddCandidate(user);
         List<Candidate> listCandidates = candidateRepository.findAll().stream().
                 sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());

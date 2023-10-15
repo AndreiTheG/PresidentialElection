@@ -68,7 +68,7 @@ public class CandidateController {
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }
-        return "redirect:/candidate/:" + candidateId + "/candidate-page-profile";
+        return "redirect:/candidate/:" + candidateId + "";
     }
 
 

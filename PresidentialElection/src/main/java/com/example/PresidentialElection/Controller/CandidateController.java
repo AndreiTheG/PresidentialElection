@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 public class CandidateController {
       private final UserRepository userRepository;
       private long userId;
+      private User newUser;
       private final CandidateRepository candidateRepository;
       private long candidateId;
 
@@ -69,13 +70,15 @@ public class CandidateController {
 //        return "redirect:/candidate/:" + candidateId + "/candidate-page-profile";
 //    }
 
+    public void saveUser(User user) {
+        this.newUser = user;
+    }
+
     // Display the profile page of the candidate with the id equal to the value of idCandidate
     @GetMapping(":{candidateId}/candidate-page-profile")
     public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model) {
-        UserController userController = new UserController(userRepository, candidateRepository);
-        //User newUser = new User();
-        //userController.setUser(userController.getUser());
-        System.out.println(userController.getUser());
+        User newUser = new User();
+        saveUser(newUser);
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }

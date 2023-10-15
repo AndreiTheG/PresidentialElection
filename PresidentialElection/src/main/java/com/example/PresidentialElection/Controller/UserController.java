@@ -22,11 +22,10 @@ import java.util.stream.Collectors;
 public class UserController {
     private UserRepository userRepository;
     private Boolean choseRegister = false;
-    private long userId;
     private CandidateRepository candidateRepository;
+    private long userId;
     private long candidateId;
     private long lastIdCandidate;
-
     private User currentUser;
 
     @Autowired
@@ -98,7 +97,8 @@ public class UserController {
     public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model) {
         findTheUser(user);
         currentUser = user;
-        System.out.println(currentUser.getId());
+        CandidateController candidateController = new CandidateController(userRepository, candidateRepository);
+        candidateController.saveUser(user);
         if (choseRegister) {
             userRepository.save(user);
         } else if (user.getId() == 0) {

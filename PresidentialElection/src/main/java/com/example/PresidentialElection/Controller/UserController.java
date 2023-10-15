@@ -97,7 +97,7 @@ public class UserController {
     @PostMapping("")
     public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model) {
         currentUser = user;
-        System.out.println(currentUser.getId());
+        System.out.println(user.getId());
         findTheUser(user);
         if (choseRegister) {
             userRepository.save(user);

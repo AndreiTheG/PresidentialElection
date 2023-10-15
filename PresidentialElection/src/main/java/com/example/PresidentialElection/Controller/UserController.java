@@ -23,7 +23,7 @@ public class UserController {
     private UserRepository userRepository;
     private Boolean choseRegister = false;
     private CandidateRepository candidateRepository;
-    public long userId;
+    private long userId;
     private long candidateId;
     private long lastIdCandidate;
     private User currentUser;

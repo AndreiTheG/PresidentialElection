@@ -34,9 +34,9 @@ public class UserController {
     }
 
     public long getUserId(User newUser) {
-        newUser.setId(userId);
+        newUser.setId(this.userId);
         //System.out.println(newUserId);
-        return userId;
+        return this.userId;
     }
 
     //Open the page with login and register options

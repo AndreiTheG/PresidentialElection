@@ -10,7 +10,7 @@
     <link href="/designProfile.css" rel="stylesheet">
 </head>
 <body>
-  <form action="#" th:action="@{/user/:{idUser}/page-profile(idUser=${user.id})}" th:object="${user}" method="get">
+  <form action="#" th:action="@{/user/:{idUser}/page-profile(idUser=${user.id})}" th:object="${user}" method="post">
     <textarea style="resize: none; width: 500px; height: 300px" th:field="*{description}"></textarea>
       <br>
     <button class="btn btn-primary" type="submit">Save</button>

@@ -133,17 +133,17 @@ public class UserController {
     }
 
     //Display the page profile after the modifications of the user's description
-//    @PostMapping(value = ":{id}/page-profile")
-//    public String saveTheModifiedDataOfPageProfile(@PathVariable("id") Long id, Model model, User currentUser) {
-//        User user = userRepository.findById(id).orElseThrow();
-//        user.setDescription(currentUser.getDescription());
-//        model.addAttribute("user", user);
-//        List<Candidate> listCandidates = candidateRepository.findAll().stream()
-//                .sorted(Comparator.comparingLong(Candidate::getId)).toList();
-//        model.addAttribute("candidates", listCandidates);
-//        userRepository.save(user);
-//        return "pageProfile";
-//    }
+    @PostMapping(value = ":{id}/page-profile")
+    public String saveTheModifiedDataOfPageProfile(@PathVariable("id") Long id, Model model, User currentUser) {
+        User user = userRepository.findById(id).orElseThrow();
+        user.setDescription(currentUser.getDescription());
+        model.addAttribute("user", user);
+        List<Candidate> listCandidates = candidateRepository.findAll().stream()
+                .sorted(Comparator.comparingLong(Candidate::getId)).toList();
+        model.addAttribute("candidates", listCandidates);
+        userRepository.save(user);
+        return "pageProfile";
+    }
 
     //Display the Profile page with the current information of the user
     @GetMapping(":{id}/page-profile")

@@ -27,7 +27,7 @@ public class CandidateController {
       private final CandidateRepository candidateRepository;
       private long candidateId;
 
-//    @Autowired
+    @Autowired
     public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository) {
         this.userRepository = userRepository;
         this.candidateRepository = candidateRepository;

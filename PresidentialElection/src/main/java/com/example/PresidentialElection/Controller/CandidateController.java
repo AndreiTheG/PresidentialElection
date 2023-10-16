@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 public class CandidateController {
       private final UserRepository userRepository;
       private long userId;
-      private User newUser;
       private final CandidateRepository candidateRepository;
       private long candidateId;
 
@@ -33,7 +32,6 @@ public class CandidateController {
     public CandidateController(UserRepository userRepository, CandidateRepository candidateRepository) {
         this.userRepository = userRepository;
         this.candidateRepository = candidateRepository;
-        //super(userRepository, candidateRepository);
     }
 
     // Verify if an applicant appears in the list and in case he/she modified the description,
@@ -78,10 +76,6 @@ public class CandidateController {
         model.addAttribute("candidate", candidate);
         model.addAttribute("candidates", listCandidates);
         return "candidatePageProfile";
-    }
-
-    public User getUser() {
-        return userRepository.findById(this.userId).orElseThrow();
     }
 
     // A user with idUser has the right to vote once one of the applicants with idCandidate.

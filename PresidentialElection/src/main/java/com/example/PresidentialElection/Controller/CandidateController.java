@@ -78,7 +78,7 @@ public class CandidateController {
     @GetMapping(":{candidateId}")
     public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model, HttpSession session) {
         UserController userController = new UserController(userRepository, candidateRepository);
-        String idUser = (String) session.getAttribute("user");
+        User idUser = (User) session.getAttribute("user");
         System.out.println(userId);
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";

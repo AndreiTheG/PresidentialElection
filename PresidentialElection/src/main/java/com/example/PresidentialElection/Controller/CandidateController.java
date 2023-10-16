@@ -79,7 +79,7 @@ public class CandidateController {
     public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model, HttpSession session) {
         UserController userController = new UserController(userRepository, candidateRepository);
         User idUser = (User) session.getAttribute("user");
-        System.out.println(userId);
+        System.out.println(idUser);
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }

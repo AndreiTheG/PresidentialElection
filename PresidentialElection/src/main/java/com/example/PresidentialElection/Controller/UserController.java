@@ -103,6 +103,7 @@ public class UserController {
         model.addAttribute("topCandidates", topCandidates);
         httpSession.setAttribute("user", user);
         return "redirect:/user/";
+//        return "primaryPage";
     }
 
     //Display the primary page with the current data from server if the user didn't log out.

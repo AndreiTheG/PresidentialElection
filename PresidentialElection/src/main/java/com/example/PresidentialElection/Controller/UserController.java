@@ -96,7 +96,7 @@ public class UserController {
     // the user signed up, his/her data will be saved in database and will display the primary Page with
     // its username in the navbar.
     @PostMapping("")
-    public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model,  HttpServletRequest request) {
+    public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model, HttpServletRequest request) {
         findTheUser(user);
         //currentUser = user;
         //CandidateController candidateController = new CandidateController(userRepository, candidateRepository);

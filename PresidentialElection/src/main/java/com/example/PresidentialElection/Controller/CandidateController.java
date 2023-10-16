@@ -61,31 +61,15 @@ public class CandidateController {
         return "redirect:/user/:" + userId + "";
     }
 
-    // Save the values of the id of user and the id of the current applicant so we can
-    // display the username of the user and the details of the applicant when the method will
-    // redirect to "applicant/:{idCandidate}/candidate-page-profile"
-    @GetMapping(/*":{userId}*/"visits-candidate-profile/:{candidateId}")
-    public String getAccessToCandidateProfilePage(/*@PathVariable("userId") long userId,*/ @PathVariable("candidateId") long candidateId) {
-        /*this.userId = userId;*/
-        if (this.userId == 0) {
-            return "redirect:/user/login-or-register";
-        }
-        return "redirect:/candidate/:" + candidateId + "";
-    }
-
-
     // Display the profile page of the candidate with the id equal to the value of idCandidate
     @GetMapping(":{candidateId}")
     public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model, HttpSession session) {
-        UserController userController = new UserController(userRepository, candidateRepository);
         User user = (User) session.getAttribute("user");
         this.userId = user.getId();
-        //System.out.println(idUser);
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }
         this.candidateId = candidateId;
-        //User user = userRepository.findById(this.userId).orElseThrow();
         Candidate candidate = candidateRepository.findById(this.candidateId).orElseThrow();
         updateCandidatesListOrAddCandidate(user);
         List<Candidate> listCandidates = candidateRepository.findAll().stream().

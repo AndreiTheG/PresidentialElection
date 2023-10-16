@@ -154,7 +154,7 @@ public class UserController {
                 .sorted(Comparator.comparingLong(Candidate::getId)).toList();
         model.addAttribute("candidates", listCandidates);
         userRepository.save(user);
-        return "pageProfile";
+        return "redirect:user/:" + userId + "/page-profile";
     }
 
     //Display the Profile page with the current information of the user

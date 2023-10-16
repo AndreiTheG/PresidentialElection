@@ -96,8 +96,8 @@ public class UserController {
     @PostMapping("")
     public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model) {
         findTheUser(user);
-        currentUser = user;
-        CandidateController candidateController = new CandidateController(userRepository, candidateRepository);
+        //currentUser = user;
+        //CandidateController candidateController = new CandidateController(userRepository, candidateRepository);
         //candidateController.saveUser(user);
         if (choseRegister) {
             userRepository.save(user);
@@ -145,7 +145,7 @@ public class UserController {
     }
 
     //Display the page profile after the modifications of the user's description
-    @PostMapping(":{userId}/page-profile")
+    @PostMapping(":{userId}/edit")
     public String saveTheModifiedDataOfPageProfile(@PathVariable("userId") Long userId, Model model, User currentUser) {
         User user = userRepository.findById(userId).orElseThrow();
         user.setDescription(currentUser.getDescription());

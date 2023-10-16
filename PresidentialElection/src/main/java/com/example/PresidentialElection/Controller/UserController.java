@@ -4,6 +4,8 @@ import com.example.PresidentialElection.Models.Candidate;
 import com.example.PresidentialElection.Models.User;
 import com.example.PresidentialElection.Repository.CandidateRepository;
 import com.example.PresidentialElection.Repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,7 +96,7 @@ public class UserController {
     // the user signed up, his/her data will be saved in database and will display the primary Page with
     // its username in the navbar.
     @PostMapping("")
-    public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model) {
+    public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model,  HttpServletRequest request) {
         findTheUser(user);
         //currentUser = user;
         //CandidateController candidateController = new CandidateController(userRepository, candidateRepository);
@@ -106,12 +108,15 @@ public class UserController {
         }
         userRepository.save(user);
         this.userId = user.getId();
+        HttpSession httpSession = request.getSession();
+
         List<Candidate> candidates = candidateRepository.findAll().stream()
                 .sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
         List<Candidate> topCandidates = candidates.stream()
                 .sorted(Comparator.comparingLong(Candidate::getNrVotes).reversed()).collect(Collectors.toList());
         model.addAttribute("candidates", candidates);
         model.addAttribute("topCandidates", topCandidates);
+        httpSession.setAttribute("user", user);
         return "primaryPage";
     }
 

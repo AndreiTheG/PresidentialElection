@@ -4,6 +4,8 @@ import com.example.PresidentialElection.Models.Candidate;
 import com.example.PresidentialElection.Models.User;
 import com.example.PresidentialElection.Repository.CandidateRepository;
 import com.example.PresidentialElection.Repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.jdbc.core.JdbcTemplate;

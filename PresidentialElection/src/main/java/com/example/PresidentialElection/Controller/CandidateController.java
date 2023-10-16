@@ -78,13 +78,14 @@ public class CandidateController {
     @GetMapping(":{candidateId}")
     public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model, HttpSession session) {
         UserController userController = new UserController(userRepository, candidateRepository);
-        User idUser = (User) session.getAttribute("user");
-        System.out.println(idUser);
+        User user = (User) session.getAttribute("user");
+        this.userId = user.getId();
+        //System.out.println(idUser);
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }
         this.candidateId = candidateId;
-        User user = userRepository.findById(this.userId).orElseThrow();
+        //User user = userRepository.findById(this.userId).orElseThrow();
         Candidate candidate = candidateRepository.findById(this.candidateId).orElseThrow();
         updateCandidatesListOrAddCandidate(user);
         List<Candidate> listCandidates = candidateRepository.findAll().stream().

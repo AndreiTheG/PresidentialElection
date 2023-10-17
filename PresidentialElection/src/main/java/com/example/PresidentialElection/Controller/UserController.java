@@ -136,8 +136,8 @@ public class UserController {
         HttpSession httpSession = request.getSession();
         userRepository.save(user);
         httpSession.setAttribute("user", user);
-        return "pageProfile";
-        //return "redirect:/user/:" + userId + "/page-profile";
+        //return "pageProfile";
+        return "redirect:/user/:" + userId + "/page-profile";
     }
 
     //Display the Profile page with the current information of the user

@@ -48,9 +48,9 @@ public class CandidateController {
 
     // The user registers as an applicant and will be displayed in the list of applicants
     @GetMapping(":{userId}/add-candidates")
-    public String addAndDisplayCandidates(@PathVariable("userId") Long userId) {
+    public String addAndDisplayCandidates(@PathVariable("userId") long userId) {
+        this.userId = userId;
         User user = userRepository.findById(userId).orElseThrow();
-        System.out.println(userId);
         Candidate candidate = candidateRepository.findById(user.getId())
                 .orElse(new Candidate(user.getName(), user.getSurname(), user.getEmail()
                         , user.getPhoneNumber(), user.getUsername(), user.getDescription(), 0));

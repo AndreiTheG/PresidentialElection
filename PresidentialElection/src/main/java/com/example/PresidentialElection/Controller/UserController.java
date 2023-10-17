@@ -96,11 +96,8 @@ public class UserController {
     // the user signed up, his/her data will be saved in database and will display the primary Page with
     // its username in the navbar.
     @PostMapping("")
-    public String displayPrimaryPageAfterLoginOrPassword(@Validated User user, Model model, HttpServletRequest request) {
+    public String displayPrimaryPageAfterLoginOrRegister(@Validated User user, Model model, HttpServletRequest request) {
         findTheUser(user);
-        //currentUser = user;
-        //CandidateController candidateController = new CandidateController(userRepository, candidateRepository);
-        //candidateController.saveUser(user);
         if (choseRegister) {
             userRepository.save(user);
         } else if (user.getId() == 0) {
@@ -109,7 +106,6 @@ public class UserController {
         userRepository.save(user);
         this.userId = user.getId();
         HttpSession httpSession = request.getSession();
-
         List<Candidate> candidates = candidateRepository.findAll().stream()
                 .sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
         List<Candidate> topCandidates = candidates.stream()
@@ -129,7 +125,8 @@ public class UserController {
             model.addAttribute("user", user);
             List<Candidate> candidates = candidateRepository.findAll().stream()
                     .sorted(Comparator.comparingLong(Candidate::getId)).collect(Collectors.toList());
-            List<Candidate> topCandidates = candidates.stream().sorted(Comparator.comparingLong(Candidate::getNrVotes).reversed()).collect(Collectors.toList());
+            List<Candidate> topCandidates = candidates.stream().sorted(Comparator.comparingLong(Candidate::getNrVotes)
+                    .reversed()).collect(Collectors.toList());
             model.addAttribute("candidates", candidates);
             model.addAttribute("topCandidates", topCandidates);
         } else {
@@ -139,15 +136,15 @@ public class UserController {
     }
 
     //Press the navbar-brand and the page will go back to primary page
-    @GetMapping(":{userId}")
-    public String getUserIdAndRedirectToPrimaryPage(Model model, @PathVariable("userId") Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
-        model.addAttribute("user", user);
-        userRepository.save(user);
-        this.userId = userId;
-        this.candidateId = lastIdCandidate;
-        return "redirect:/user/";
-    }
+//    @GetMapping(":{userId}")
+//    public String getUserIdAndRedirectToPrimaryPage(Model model, @PathVariable("userId") Long userId) {
+//        User user = userRepository.findById(userId).orElseThrow();
+//        model.addAttribute("user", user);
+//        userRepository.save(user);
+//        this.userId = userId;
+//        this.candidateId = lastIdCandidate;
+//        return "redirect:/user/";
+//    }
 
     //Display the page profile after the modifications of the user's description
     @PostMapping(":{userId}/edit")

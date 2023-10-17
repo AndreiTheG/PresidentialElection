@@ -26,23 +26,12 @@ public class UserController {
     private Boolean choseRegister = false;
     private final CandidateRepository candidateRepository;
     private long userId;
-    private long candidateId;
-    private long lastIdCandidate;
-    private User currentUser;
 
     @Autowired
     public UserController(UserRepository userRepository, CandidateRepository candidateRepository) {
         this.userRepository = userRepository;
         this.candidateRepository = candidateRepository;
     }
-
-    public User getUser() {
-        return currentUser;
-    }
-
-//    public void setUser(User user) {
-//        this.currentUser = user;
-//    }
 
     //Open the page with login and register options
     @GetMapping("login-or-register")
@@ -95,8 +84,8 @@ public class UserController {
     // exists, it will open the primary page. Else it will redirect to login-error page. If
     // the user signed up, his/her data will be saved in database and will display the primary Page with
     // its username in the navbar.
-    @PostMapping("")
-    public String displayPrimaryPageAfterLoginOrRegister(@Validated User user, Model model, HttpServletRequest request) {
+    @PostMapping("login")
+    public String openPrimaryPageAfterLoginOrRegister(@Validated User user, Model model, HttpServletRequest request) {
         findTheUser(user);
         if (choseRegister) {
             userRepository.save(user);
@@ -113,7 +102,7 @@ public class UserController {
         model.addAttribute("candidates", candidates);
         model.addAttribute("topCandidates", topCandidates);
         httpSession.setAttribute("user", user);
-        return "primaryPage";
+        return "redirect:/user/";
     }
 
     //Display the primary page with the current data from server if the user didn't log out.
@@ -137,15 +126,18 @@ public class UserController {
 
     //Display the page profile after the modifications of the user's description
     @PostMapping(":{userId}/edit")
-    public String saveTheModifiedDataOfPageProfile(@PathVariable("userId") Long userId, Model model, User currentUser) {
+    public String saveTheModifiedDescription(@PathVariable("userId") Long userId, Model model, User currentUser, HttpServletRequest request) {
         User user = userRepository.findById(userId).orElseThrow();
         user.setDescription(currentUser.getDescription());
         model.addAttribute("user", user);
         List<Candidate> listCandidates = candidateRepository.findAll().stream()
                 .sorted(Comparator.comparingLong(Candidate::getId)).toList();
         model.addAttribute("candidates", listCandidates);
+        HttpSession httpSession = request.getSession();
         userRepository.save(user);
-        return "redirect:/user/:" + userId + "/page-profile";
+        httpSession.setAttribute("user", user);
+        return "pageProfile";
+        //return "redirect:/user/:" + userId + "/page-profile";
     }
 
     //Display the Profile page with the current information of the user
@@ -160,7 +152,7 @@ public class UserController {
     }
 
     @GetMapping(":{userId}/update-description")
-    public String getDerivedDescription(@PathVariable("userId") Long userId, Model model) {
+    public String updateDescription(@PathVariable("userId") Long userId, Model model) {
         User user = userRepository.findById(userId).orElseThrow();
         model.addAttribute("user", user);
         return "updateDescription";

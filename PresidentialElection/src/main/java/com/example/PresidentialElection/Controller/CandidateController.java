@@ -61,12 +61,13 @@ public class CandidateController {
 
     // Display the profile page of the candidate with the id equal to the value of idCandidate
     @GetMapping(":{candidateId}")
-    public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        this.userId = user.getId();
+    public String openCandidatePageProfile(@PathVariable("candidateId") long candidateId, Model model/*, HttpSession session*/) {
+        //User user = (User) session.getAttribute("user");
+        //this.userId = user.getId();
         if (this.userId == 0) {
             return "redirect:/user/login-or-register";
         }
+        User user = userRepository.findById(userId).orElseThrow();
         this.candidateId = candidateId;
         Candidate candidate = candidateRepository.findById(this.candidateId).orElseThrow();
         updateCandidatesListOrAddCandidate(user);
